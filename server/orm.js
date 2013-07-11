@@ -1,17 +1,8 @@
 var orm = require('orm');
 
 var opts = {
-  database : "test",
-  protocol : "mysql",
-  host     : "127.0.0.1",
-  port     : 3306,
-  user     : 'root',
-  password : 'mysql',
-  query    : {
-    pool     : false,
-    debug    : false,
-    strdates : false
-  }
+  database : "db.sqlite",
+  protocol : "sqlite"
 };
 
 exports.init = function (app) {
