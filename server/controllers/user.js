@@ -20,7 +20,20 @@ var post = {
 		"nickname" : "registerUser"
 	},
 	'action': function (req,res) {
-		res.send(JSON.stringify(req));
+		req.db.models.users.create(
+			[
+				{
+					email: req.body.email,
+					password: req.body.password
+				}
+			], function (err, items) {
+			    if(err){
+			    	res.send(JSON.stringify(err));
+			    }else{
+			    	res.send(JSON.stringify(items));
+			    }
+			}
+		);
 	}
 };
 
