@@ -1,20 +1,13 @@
 var orm = require('orm');
 
 exports.init = function (app) {
-	app.use(orm.express("sqlite:///db.sqlite", {
+	app.use(orm.express('sqlite://'+__dirname+'/db.sqlite', {
 	    define: function (db, models) {
-	    	console.log(db)
-	    	console.log(models)
-	        //models.person = db.define("person", { ... });
-
-	        var fulltxt = db.define("fulltxt", {
-		        id      : Number,
-		        fulltxt   : String
+	        db.define("users", {
+		        id       : Number,
+		        email    : String,
+		        password : String
 		    });
-
-		   /*fulltxt.get(1, function(err, fulltxt) {
-			    console.log( fulltxt.fulltxt );
-			})*/
 	    }
-	}))
+	}));
 }
