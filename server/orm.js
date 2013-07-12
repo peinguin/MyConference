@@ -1,12 +1,7 @@
 var orm = require('orm');
 
-var opts = {
-  database : "db.sqlite",
-  protocol : "sqlite"
-};
-
 exports.init = function (app) {
-	app.use(orm.express(opts, {
+	app.use(orm.express("sqlite:///db.sqlite", {
 	    define: function (db, models) {
 	    	console.log(db)
 	    	console.log(models)
@@ -17,9 +12,9 @@ exports.init = function (app) {
 		        fulltxt   : String
 		    });
 
-		    fulltxt.get(1, function(err, fulltxt) {
+		   /*fulltxt.get(1, function(err, fulltxt) {
 			    console.log( fulltxt.fulltxt );
-			})
+			})*/
 	    }
 	}))
 }
