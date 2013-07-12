@@ -1,9 +1,8 @@
 var swagger = require("swagger-node-express"),
 	models = require("./models"),
-	controllers = require('./controllers'),
-	express = require("express");
+	controllers = require('./controllers');
 
-exports.init = function (app) {
+exports.init = function (app, express) {
 	swagger.setAppHandler(app);
 	swagger.addModels(models);
 	controllers.init(swagger);
