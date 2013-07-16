@@ -37,4 +37,30 @@ var post = {
 	}
 };
 
+var email = {
+	'spec': {
+		"description" : "Get users email",
+		"path" : "/user.{format}/email",
+		"notes" : "Get users email",
+		"summary" : "Get users email",
+		"method": "GET",
+		"responseClass" : "string",
+		"nickname" : "userEmail"
+	},
+	'action': function (req,res) {
+		if(req.user){
+			req.db.models.users.get(req.user, function(err, User){
+				if(err){
+					res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
+				}else{
+					res.send(200, JSON.stringify({email: User.email}));
+				}
+			});
+		}else{
+			res.send(403, JSON.stringify({code: 403, header: 'Forbidden', message: 'You have to log in'}));
+		}
+	}
+};
+
 exports.post = post;
+exports.email = email;
