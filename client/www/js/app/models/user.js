@@ -1,6 +1,18 @@
 define(
-	['backbone', 'app/models/localStorage', 'app/config', 'app/app', 'app/views/header'],
-	function (Backbone, Storage, cfg, MyConference, HeaderView) {
+	[
+		'backbone',
+		'app/models/localStorage',
+		'app/config',
+		'app/app',
+		'app/views/header'
+	],
+	function (
+		Backbone,
+		Storage,
+		cfg,
+		MyConference,
+		HeaderView
+	) {
 
 		var EmailModel = new (Backbone.Model.extend({
 			url: cfg.baseUrl + 'user.json/email'
@@ -52,8 +64,11 @@ define(
 				var model = this;
 				$.ajax({
 					method:'DELETE',
+					dataType: 'html',
 					url: cfg.baseUrl + 'auth.json',
-					error: function(){console.log('error')},
+					error: function(jqXHR, textStatus, errorThrown){
+						console.log(jqXHR, textStatus, errorThrown);
+					},
 					success: function(){
 						Storage.set('API_KEY', undefined);
 						model.set({

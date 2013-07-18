@@ -8,6 +8,10 @@ exports.init = function (app) {
 		        email    : String,
 		        password : String
 		    });
+		    db.define("conferences", {
+		        id       : Number,
+		        name    : String
+		    });
 	    }
 	}));
 }

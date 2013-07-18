@@ -37,7 +37,8 @@ requirejs(['app/app'], function(app){
             [
                 'css!bootstrap_css',
                 'bootstrap',
-                "app/modules/auth"
+                "app/modules/auth",
+                "app/modules/main"
             ],
             function () {
                 app.start();

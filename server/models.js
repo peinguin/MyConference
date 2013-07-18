@@ -1,16 +1,27 @@
 exports.models = {
     "User":{
-      "id":"User",
-      "properties":{
-        "id":{
-          "type":"int"
-        },
-        "email":{
-          "type":"string"
-        },
-        "password":{
-          "type":"string"
+        "id":"User",
+        "properties":{
+            "id":{
+                "type":"int"
+            },
+            "email":{
+                "type":"string"
+            },
+            "password":{
+                "type":"string"
+            }
         }
-      }
+    },
+    "Conference":{
+        id:"Conference",
+        "properties":{
+            "id":{
+                "type":"int"
+            },
+            "name":{
+                "type":"string"
+            },
+        }
     }
   }

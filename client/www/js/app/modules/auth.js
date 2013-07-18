@@ -22,6 +22,11 @@ define(
 
 			var AuthController = Marionette.Controller.extend({
 				login: function(){
+
+					if(MyConference.User.get('isGuest') === false){
+						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}
+
 					var loginView = new LoginView;
 					loginView.controller = this;
 					MyConference.mainView.show(loginView);
@@ -43,6 +48,7 @@ define(
 								email: user.email,
 								isGuest: false
 							});
+							(new Backbone.Router).navigate("", {trigger: true, replace: true});
 						},
 						error: function(xhr){
 							if(xhr.status == 403){
