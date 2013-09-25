@@ -13,7 +13,7 @@ To start
 To run server:
 --------------
 
-> node server app.js
+> node server/app.js
 
 to add/build applications
 cd client
