@@ -1,4 +1,4 @@
 define({
 	authHeader: 'api_key',
-	baseUrl : 'http://localhost:8002/'
+	baseUrl : 'http://myconference.php.poltava.ua/'
 });

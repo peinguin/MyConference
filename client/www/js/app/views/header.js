@@ -13,7 +13,7 @@ define(
 				this.render();
 			},
 			template: function(data){
-				return _.template('<%= title %>', {title: data.title});
+				return _.template('<h1><%= title %></h1>', {title: data.title});
 			}
 		});
 

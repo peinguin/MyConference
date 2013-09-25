@@ -1,19 +1,17 @@
-<form class="form-horizontal" method="POST" action="<% cfg.baseUrl %>auth.json">
-	<div class="control-group">
-		<label class="control-label" for="inputEmail">Email</label>
-		<div class="controls">
-			<input type="text" id="inputEmail" name="email" placeholder="Email">
-		</div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<form role="form" method="POST" action="<% cfg.baseUrl %>auth.json">
+			<div class="form-group">
+				<label class="control-label" for="inputEmail">Email</label>
+				<input class="form-control" type="text" id="inputEmail" name="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="inputPassword">Password</label>
+				<input class="form-control" type="password" id="inputPassword" name="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-default">Sign in</button>
+			</div>
+		</form>
 	</div>
-	<div class="control-group">
-		<label class="control-label" for="inputPassword">Password</label>
-		<div class="controls">
-			<input type="password" id="inputPassword" name="password" placeholder="Password">
-		</div>
-	</div>
-	<div class="control-group">
-		<div class="controls">
-			<button type="submit" class="btn">Sign in</button>
-		</div>
-	</div>
-</form>
+</div>

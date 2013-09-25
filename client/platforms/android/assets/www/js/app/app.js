@@ -1,24 +1,16 @@
 define(
-	['marionette', 'app/views/layout'],
-	function (Marionette, LayoutView){
+	['marionette', 'app/models/user'],
+	function (Marionette, UserModel, MyAppRouter){
 
 		var MyConference = new Marionette.Application();
 
 		MyConference.addRegions({
 		 	mainView : '#mainView'
 		});
-
-		MyConference.addInitializer(function(options){
-            var LayoutView = new LayoutView();
-            MyConference.mainView.show(LayoutView);
-		});
-
-		MyConference.addInitializer(function(options){
+		
+		MyConference.on("initialize:after", function(options){
+			MyConference.User = new UserModel;
 			Backbone.history.start();
-		});
-
-		MyConference.on('initialize:after', function(){
-			console.log('initialize:after')
 		});
 
 		return MyConference;

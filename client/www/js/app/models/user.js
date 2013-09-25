@@ -52,12 +52,6 @@ define(
 					$.ajaxSetup({headers: headers});
 				}
 
-				this.on('change:isGuest change:email',function(){
-					if(model.get('isGuest') === true){
-						(new Backbone.Router).navigate("login", {trigger: true, replace: true});
-					}
-				});
-
 				this.getEmail();
 			},
 			logout: function(){

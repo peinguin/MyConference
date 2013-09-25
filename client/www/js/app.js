@@ -8,7 +8,7 @@ requirejs.config({
         marionette: 'backbone.marionette.min',
         config: 'app/config',
 
-        bootstrap: 'bootstrap/js/bootstrap',
+        bootstrap: 'bootstrap/js/bootstrap.min',
         bootstrap_css: 'bootstrap/css/bootstrap.min',
     },
     shim: {

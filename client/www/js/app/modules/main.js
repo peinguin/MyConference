@@ -5,13 +5,19 @@ define(
 		'app/views/conferences',
 		'app/views/header',
 		'app/collections/conferences',
+		'app/models/conference',
+		'app/views/conference_full',
+		'app/views/conference_not_found',
 	],
 	function (
 		MyConference,
 		LayoutTemplte,
 		MainView,
 		HeaderView,
-		ConferencesCollection
+		ConferencesCollection,
+		ConferenceModel,
+		ConferenceFullView,
+		ConferenceNotFoundView
 	) {
 		MyConference.module("Main", function(MainModule){
 			MainLayout = Backbone.Marionette.Layout.extend({
@@ -22,6 +28,10 @@ define(
 				regions: {
 			    	header: "header",
 			    	content: "#content"
+				},
+
+				onShow: function() {
+					document.getElementsByTagName('body')[0].className = '';
 				}
 			});
 
@@ -48,13 +58,30 @@ define(
 								mainLayout.content.show(mainView);
 							}
 						})
+					},
+					conference: function(id){
+						var conferenceModel = new ConferenceModel;
+						conferenceModel.set('id', id);
+						conferenceModel.fetch({
+							error: function(){
+								var conferenceNotFoundView = new ConferenceNotFoundView;
+								mainLayout.content.show(conferenceNotFoundView);
+							},
+							success: function(conference){
+								var conferenceFullView = new ConferenceFullView;
+								conferenceFullView.model = conference;
+								mainLayout.content.show(conferenceFullView);
+							}
+						});
 					}
 				}
 			});
 
 			var MainRouter = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
-					"": "main"
+					"": "main",
+					"conference/:id": "conference",
+					"conferences": "main"
 				},
 				controller: new MainController
 			});

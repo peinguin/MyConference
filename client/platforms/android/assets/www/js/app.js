@@ -5,7 +5,11 @@ requirejs.config({
         jquery: 'jquery-2.0.3.min',
         backbone: 'backbone-min',
         underscore: 'underscore-min',
-        marionette: 'backbone.marionette.min'
+        marionette: 'backbone.marionette.min',
+        config: 'app/config',
+
+        bootstrap: 'bootstrap/js/bootstrap.min',
+        bootstrap_css: 'bootstrap/css/bootstrap.min',
     },
     shim: {
     	jquery : {
@@ -25,19 +29,28 @@ requirejs.config({
     }
 });
 
-requirejs(['app/app', 'jquery'], function(app, $){
+requirejs(['app/app'], function(app){
     'use strict';
 
     var onDeviceReady = function(){
-        app.start();
+        require(
+            [
+                'css!bootstrap_css',
+                'bootstrap',
+                "app/modules/auth",
+                "app/modules/main"
+            ],
+            function () {
+                app.start();
+            }
+        );   
     }
 
     $(function () {
-
-        if (navigator.userAgent.match(/Chrome/)) {
-            onDeviceReady();
-        } else {
+        if (window.cordova) {
             document.addEventListener("deviceready", onDeviceReady, false);
+        } else {
+            onDeviceReady();
         }
     });
 });

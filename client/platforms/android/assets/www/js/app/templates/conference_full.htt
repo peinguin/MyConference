@@ -1,0 +1,6 @@
+<ol class="breadcrumb">
+  <li><a href="#conferences">Conferenes</a></li>
+  <li class="active"><%= id %></li>
+</ol>
+
+<h1><%= name %></h1>

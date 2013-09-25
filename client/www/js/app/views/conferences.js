@@ -1,6 +1,7 @@
 define(
 	[
-		'text!app/templates/conference.htt'
+		'text!app/templates/conference.htt',
+		'text!app/templates/conferences.htt'
 	],
 	function (
 		ConferenceTemplate,
@@ -13,8 +14,11 @@ define(
 			}
 		});
 
-		ConferencesView = Backbone.Marionette.CollectionView.extend({
-			itemView: ConferenceView
+		ConferencesView = Backbone.Marionette.CompositeView.extend({
+			itemView: ConferenceView,
+			template: function(model){
+				return _.template(ConferencesTemplate, model);
+			}
 		});
 
 		return ConferencesView;

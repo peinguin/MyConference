@@ -1,1 +1,1 @@
-<div class="conference"><%= name %></div>
+<li class="list-group-item"><a href="#conference/<%= id %>"><%= name %></a></li>

@@ -6,7 +6,7 @@ define(
 		cfg
 	) {
 		var ConferenceModel = Backbone.Model.extend({
-			urlRoot: cfg.baseUrl + '/conference.json'
+			urlRoot: cfg.baseUrl + 'conferences.json'
 		});
 
 		return ConferenceModel;
