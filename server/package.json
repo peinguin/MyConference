@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+  	"express": "*",
+  	"memcache": "*",
+  	"mysql": "*",
+  	"orm": "*",
+  	"sqlite3": "*",
+  	"swagger-node-express": "*"
+  }
+}
