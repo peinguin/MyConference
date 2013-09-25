@@ -8,4 +8,5 @@ exports.init = function(swagger) {
 	swagger.addPost(auth.post);
 	swagger.addDELETE(auth.del);
 	swagger.addGET(conferences.get);
+	swagger.addGET(conferences.list);
 }

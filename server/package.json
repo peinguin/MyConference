@@ -5,6 +5,9 @@
   	"mysql": "*",
   	"orm": "*",
   	"sqlite3": "*",
-  	"swagger-node-express": "*"
+  	"swagger-node-express": "*",
+  	"bytes": "*",
+  	"qs": "*",
+  	"multiparty": "*"
   }
 }
