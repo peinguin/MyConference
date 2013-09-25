@@ -7,6 +7,7 @@ To start
 --------
 
 >cd server
+
 >nmp install
 
 To run server:
