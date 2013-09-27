@@ -1,1 +1,1 @@
-<li class="list-group-item"><a href="#conference/<%= id %>"><%= name %></a></li>
+<a class="btn btn-default justify" href="#conference/<%= id %>"><%= title %></a>

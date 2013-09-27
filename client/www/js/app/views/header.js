@@ -1,9 +1,10 @@
 define(
 	[
-		'marionette'
+		'marionette', 'text!app/templates/header.htt'
 	],
 	function (
-		Marionette
+		Marionette,
+		template
 	) {
 		var HeaderView = Marionette.ItemView.extend({
 			model: {title: undefined, toJSON: function(){return this;}},
@@ -13,7 +14,7 @@ define(
 				this.render();
 			},
 			template: function(data){
-				return _.template('<h1><%= title %></h1>', {title: data.title});
+				return _.template(template, {title: data.title});
 			}
 		});
 

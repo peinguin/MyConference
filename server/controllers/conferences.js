@@ -42,6 +42,9 @@ var get = {
 				res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
 			}else{
 				if(conference){
+					if(conference.file){
+						conference.file = '/static/' + conference.file;
+					}
 					res.send(200, JSON.stringify(conference));
 				}else{
 					throw swagger.errors.notFound('conference');

@@ -9,8 +9,19 @@ exports.init = function (app) {
 		        password : String
 		    });
 		    db.define("conferences", {
-		        id       : Number,
-		        name    : String
+		        id          : Number,
+		        title       : String,
+		        description : String,
+		        datetime    : Date,
+		        place       : String,
+		        location    : String,
+		        site        : String,
+		        logo        : String,
+		        facebook    : String,
+		        twitter     : String,
+		        telephone   : String,
+		        cost        : String,
+		        file        : String
 		    });
 	    }
 	}));

@@ -1,9 +1,10 @@
 var swagger = require("swagger-node-express"),
 	models = require("./models"),
 	controllers = require('./controllers'),
-	cfg = require('./config');
+	cfg = require('./config'),
+	express = require("express");
 
-exports.init = function (app, express) {
+module.exports = exports = function (app) {
 
 	app.use(function(req, res, next) {
 	    res.header('Access-Control-Allow-Origin', '*');
