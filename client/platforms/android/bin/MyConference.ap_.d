@@ -32,6 +32,7 @@
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/config.xml \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/img/logo.png \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/img/spinner.gif \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/css/index.css \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/cordova/cordova_48.png \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/cordova/cordova_ios_72.png \
@@ -87,7 +88,9 @@
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/text.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/jquery-2.0.3.min.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/backbone-min.map \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/jquery-2.0.3.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/css.js \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/require.min.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/bootstrap \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/backbone.wreqr.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/backbone.marionette.min.js \
@@ -97,6 +100,8 @@
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/underscore-min.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/normalize.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/backbone.babysitter.js \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/pdf.js \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/pdf.worker.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/bootstrap/fonts \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/bootstrap/css \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/lib/bootstrap/js \
@@ -119,14 +124,16 @@
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/collections \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/app.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/login.js \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/spinner.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/conferences.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/alert.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/conference_not_found.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/conference_full.js \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/views/header.js \
-/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/conferences.htt \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/conference_full.htt \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/spinner.htt \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/layout.htt \
+/home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/header.htt \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/alert.htt \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/conference.htt \
 /home/projects/PhoneGap/MyConference/client/platforms/android/assets/www/js/app/templates/login.htt \

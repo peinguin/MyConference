@@ -8,6 +8,7 @@ define(
 		'app/models/conference',
 		'app/views/conference_full',
 		'app/views/conference_not_found',
+		'app/views/spinner'
 	],
 	function (
 		MyConference,
@@ -17,7 +18,8 @@ define(
 		ConferencesCollection,
 		ConferenceModel,
 		ConferenceFullView,
-		ConferenceNotFoundView
+		ConferenceNotFoundView,
+		SpinnerView
 	) {
 		MyConference.module("Main", function(MainModule){
 			MainLayout = Backbone.Marionette.Layout.extend({
@@ -45,17 +47,21 @@ define(
 
 				return {
 					main: function(){
-						headerView.setHeader('conferences');
+						headerView.setHeader('Conferences');
 
 						var conferencesCollection = new ConferencesCollection;
+
+						var spinnerView = new SpinnerView();
+						spinnerView.render();
 						conferencesCollection.fetch({
 							error: function(){
 								console.log('error');
 							},
 							success: function(collection){
 								var mainView = new MainView;
-								mainView.collection = collection;
+								mainView.collection = conferencesCollection;
 								mainLayout.content.show(mainView);
+								spinnerView.remove();
 							}
 						})
 					},
