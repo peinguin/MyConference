@@ -33,12 +33,14 @@ requirejs(['app/app'], function(app){
     'use strict';
 
     var onDeviceReady = function(){
+        document.getElementsByTagName('body')[0].className = '';
+        
         require(
             [
                 'css!bootstrap_css',
                 'bootstrap',
-                "app/modules/auth",
-                "app/modules/main"
+                'app/modules/conferences',
+                'app/modules/auth',
             ],
             function () {
                 app.start();

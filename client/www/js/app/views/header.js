@@ -6,7 +6,7 @@ define(
 		Marionette,
 		template
 	) {
-		var HeaderView = Marionette.ItemView.extend({
+		var HeaderView = Marionette.Layout.extend({
 			model: {title: undefined, toJSON: function(){return this;}},
 			title: undefined,
 			setHeader: function(title){
@@ -15,6 +15,11 @@ define(
 			},
 			template: function(data){
 				return _.template(template, {title: data.title});
+			},
+
+			regions: {
+		    	search: "#search",
+		    	auth: "#auth"
 			}
 		});
 

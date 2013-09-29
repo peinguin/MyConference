@@ -4,15 +4,43 @@ define(
 		'app/models/localStorage',
 		'app/config',
 		'app/app',
-		'app/views/header'
+		'app/views/auth/login_form',
+		'app/views/auth/user_info'
 	],
 	function (
 		Backbone,
 		Storage,
 		cfg,
 		MyConference,
-		HeaderView
+		LoginForm
 	) {
+
+		var realLogin = function(e){
+			e.preventDefault();
+
+			var form = e.target;
+
+			$.ajax({
+				url: cfg.baseUrl + 'auth.json',
+				data: {
+					email: form.email.value,
+					password: form.password.value
+				},
+				method:'POST',
+				success :function(user, message, xhr){
+					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
+					MyConference.User.set({
+						email: user.email,
+						isGuest: false
+					});
+				},
+				error: function(xhr){
+					if(xhr.status == 403){
+						(new AlertView).render(Helper.getErrorStringInHtml(xhr));
+					}
+				}
+			});
+		};
 
 		var EmailModel = new (Backbone.Model.extend({
 			url: cfg.baseUrl + 'user.json/email'
@@ -51,6 +79,18 @@ define(
 
 					$.ajaxSetup({headers: headers});
 				}
+
+				this.on('change:isGuest change:email', function(){
+					if(model.get('isGuest') === false){
+
+					}else{
+
+						var loginForm = new LoginForm;
+						loginForm.realLogin = realLogin;
+
+						MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
+					}
+				})
 
 				this.getEmail();
 			},

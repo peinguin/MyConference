@@ -1,53 +1,32 @@
 define(
 	[
+		'marionette',
+
 		'app/app',
-		'text!app/templates/layout.htt',
-		'app/views/conferences',
-		'app/views/header',
+		'app/views/conferences/conferences',
 		'app/collections/conferences',
 		'app/models/conference',
-		'app/views/conference_full',
-		'app/views/conference_not_found',
+		'app/views/conferences/conference_full',
+		'app/views/conferences/conference_not_found',
 		'app/views/spinner'
 	],
 	function (
+		Marionette,
 		MyConference,
-		LayoutTemplte,
 		MainView,
-		HeaderView,
 		ConferencesCollection,
 		ConferenceModel,
 		ConferenceFullView,
 		ConferenceNotFoundView,
 		SpinnerView
 	) {
-		MyConference.module("Main", function(MainModule){
-			MainLayout = Backbone.Marionette.Layout.extend({
-				template: function(){
-					return _.template(LayoutTemplte, {});
-				},
-
-				regions: {
-			    	header: "header",
-			    	content: "#content"
-				},
-
-				onShow: function() {
-					document.getElementsByTagName('body')[0].className = '';
-				}
-			});
-
-			var MainController = Backbone.Marionette.Controller.extend(new function(){
-				
-				var mainLayout = new MainLayout;
-
-				MyConference.mainView.show(mainLayout);
-				var headerView = new HeaderView;
-				mainLayout.header.show(headerView);
+		MyConference.module("Conferences", function(MainModule){
+			
+			var ConferencesController = Marionette.Controller.extend(new function(){
 
 				return {
 					main: function(){
-						headerView.setHeader('Conferences');
+						MyConference.mainView.currentView.header.currentView.setHeader('Conferences');
 
 						var conferencesCollection = new ConferencesCollection;
 
@@ -60,7 +39,7 @@ define(
 							success: function(collection){
 								var mainView = new MainView;
 								mainView.collection = conferencesCollection;
-								mainLayout.content.show(mainView);
+								MyConference.mainView.currentView.content.show(mainView);
 								spinnerView.remove();
 							}
 						})
@@ -71,12 +50,12 @@ define(
 						conferenceModel.fetch({
 							error: function(){
 								var conferenceNotFoundView = new ConferenceNotFoundView;
-								mainLayout.content.show(conferenceNotFoundView);
+								MyConference.mainView.currentView.content.show(conferenceNotFoundView);
 							},
 							success: function(conference){
 								var conferenceFullView = new ConferenceFullView;
 								conferenceFullView.model = conference;
-								mainLayout.content.show(conferenceFullView);
+								MyConference.mainView.currentView.content.show(conferenceFullView);
 							}
 						});
 					}
@@ -85,11 +64,11 @@ define(
 
 			var MainRouter = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
-					"": "main",
 					"conference/:id": "conference",
-					"conferences": "main"
+					"conferences": "main",
+					"": "main"
 				},
-				controller: new MainController
+				controller: new ConferencesController
 			});
 
 			MainModule.addInitializer(function(){

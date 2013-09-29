@@ -9,21 +9,8 @@
       <a href="#" class="navbar-brand"><%= title %></a>
     </div>
     <div class="navbar-collapse collapse">
-      <form role="search" class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" placeholder="Search" class="form-control">
-        </div>
-        <button class="btn btn-default" type="submit">Search</button>
-      </form>
-      <form class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password">
-        </div>
-        <button class="btn btn-success" type="submit">Sign in</button>
-      </form>
+      <div id="search"></div>
+      <div id="auth"></div>
     </div><!--/.navbar-collapse -->
   </div>
 </div>

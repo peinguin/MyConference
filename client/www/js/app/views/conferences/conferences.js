@@ -1,12 +1,14 @@
 define(
 	[
-		'text!app/templates/conference.htt'
+		'marionette',
+		'text!app/templates/conferences/conference.htt'
 	],
 	function (
+		Marionette,
 		ConferenceTemplate
 	) {
 
-		ConferenceView = Backbone.Marionette.ItemView.extend({
+		ConferenceView = Marionette.ItemView.extend({
 			template: function(model){
 				return _.template(ConferenceTemplate, model);
 			},
@@ -18,7 +20,7 @@ define(
 		    }
 		});
 
-		ConferencesView = Backbone.Marionette.CollectionView.extend({
+		ConferencesView = Marionette.CollectionView.extend({
 			itemView: ConferenceView,
 			el:'<div class="btn-group-vertical"></div>'
 		});

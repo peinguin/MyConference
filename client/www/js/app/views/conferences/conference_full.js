@@ -1,7 +1,7 @@
 define(
 	[
 		'marionette',
-		'text!app/templates/conference_full.htt',
+		'text!app/templates/conferences/conference_full.htt',
 	],
 	function (
 		Marionette,

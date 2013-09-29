@@ -1,15 +1,42 @@
 define(
-	['marionette', 'app/models/user'],
-	function (Marionette, UserModel, MyAppRouter){
+	[
+		'marionette',
+
+		'text!app/templates/layout.htt',
+		'app/views/header',
+	],
+	function (
+		Marionette,
+
+		LayoutTemplte,
+		HeaderView
+	){
 
 		var MyConference = new Marionette.Application();
 
 		MyConference.addRegions({
 		 	mainView : '#mainView'
 		});
+
+		var MainLayout = Marionette.Layout.extend({
+			template: function(){
+				return _.template(LayoutTemplte, {});
+			},
+
+			regions: {
+		    	header: "header",
+		    	content: "#content"
+			}
+		});
 		
 		MyConference.on("initialize:after", function(options){
-			MyConference.User = new UserModel;
+
+			var mainLayout = new MainLayout;
+
+			MyConference.mainView.show(mainLayout);
+			var headerView = new HeaderView;
+			mainLayout.header.show(headerView);
+
 			Backbone.history.start();
 		});
 

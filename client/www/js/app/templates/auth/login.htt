@@ -1,0 +1,9 @@
+<form class="navbar-form navbar-right" action="<% cfg.baseUrl %>auth.json">
+  <div class="form-group">
+    <input type="text" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password">
+  </div>
+  <button class="btn btn-success" type="submit">Sign in</button>
+</form>
