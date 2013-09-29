@@ -10,11 +10,16 @@ define(
 				return _.template(Template, {cfg: cfg});
 			},
 			events:{
-				'submit form': 'login'
+				'submit form': 'login',
+				"click [href=\"#not_implemented\"]": "not_implemented"
 			},
 			login: function(e){
 				e.preventDefault();
 				this.model.login(e.target);
+			},
+			not_implemented: function(e){
+				e.preventDefault();
+				alert('Not implemented yet');
 			}
 		});
 

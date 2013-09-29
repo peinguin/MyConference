@@ -2,7 +2,7 @@
   <li class="dropdown">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#"><%= email %> <b class="caret"></b></a>
     <ul role="menu" class="dropdown-menu">
-      <li><a href="#">Profile</a></li>
+      <li><a href="#not_implemented">Profile</a></li>
       <li><a href="#logout">Logout</a></li>
     </ul>
   </li>
