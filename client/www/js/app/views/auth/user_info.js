@@ -5,10 +5,8 @@ define(
 	],
 	function (Marionette, Template) {
 		var LoginView = Marionette.ItemView.extend({
-			controller: undefined,
-			user: undefined,
-			template: function(){
-				return _.template(Template);
+			template: function(model){
+				return _.template(Template, model);
 			}
 		});
 

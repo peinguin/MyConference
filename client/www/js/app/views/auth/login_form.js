@@ -6,13 +6,15 @@ define(
 	],
 	function (Marionette, Template, cfg) {
 		var LoginView = Marionette.ItemView.extend({
-			controller: undefined,
-			realLogin: undefined,
 			template: function(){
 				return _.template(Template, {cfg: cfg});
 			},
 			events:{
-				'submit form': 'realLogin'
+				'submit form': 'login'
+			},
+			login: function(e){
+				e.preventDefault();
+				this.model.login(e.target);
 			}
 		});
 

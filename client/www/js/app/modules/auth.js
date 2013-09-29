@@ -2,19 +2,11 @@ define(
 	[
 		'app/app',
 		'marionette',
-		'app/config',
-		'app/helper',
-		'app/views/alert',
-		'app/models/localStorage',
 		'app/models/user'
 	],
 	function(
 		MyConference,
 		Marionette,
-		cfg,
-		Helper,
-		AlertView,
-		Storage,
 		UserModel
 	){
 
@@ -34,7 +26,11 @@ define(
 					MyConference.mainView.show(registerView);
 				},
 				logout: function(){
-					User.logout();
+					if(User.get('isGuest') === true){
+						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}else{
+						User.logout();
+					}
 				}
 			});
 

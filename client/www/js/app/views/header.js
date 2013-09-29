@@ -10,8 +10,10 @@ define(
 			model: {title: undefined, toJSON: function(){return this;}},
 			title: undefined,
 			setHeader: function(title){
-				this.model.title = title;
-				this.render();
+				if(!this.title){
+					this.title = this.$el.find('#title');
+				}
+				this.title.text(title);
 			},
 			template: function(data){
 				return _.template(template, {title: data.title});
