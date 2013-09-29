@@ -37,6 +37,8 @@ define(
 			var headerView = new HeaderView;
 			mainLayout.header.show(headerView);
 
+			MyConference.Conferences.start();
+
 			Backbone.history.start();
 		});
 

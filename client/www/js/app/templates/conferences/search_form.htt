@@ -1,6 +1,4 @@
-<form role="search" class="navbar-form navbar-left">
-	<div class="form-group">
-	  <input type="text" placeholder="Search" class="form-control">
-	</div>
-	<button class="btn btn-default" type="submit">Search</button>
-</form>
+<div class="form-group">
+  <input type="text" placeholder="Search" class="form-control">
+</div>
+<button class="btn btn-default" type="submit">Search</button>

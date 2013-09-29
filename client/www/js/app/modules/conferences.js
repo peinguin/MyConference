@@ -8,7 +8,8 @@ define(
 		'app/models/conference',
 		'app/views/conferences/conference_full',
 		'app/views/conferences/conference_not_found',
-		'app/views/spinner'
+		'app/views/spinner',
+		'app/views/conferences/search'
 	],
 	function (
 		Marionette,
@@ -18,12 +19,12 @@ define(
 		ConferenceModel,
 		ConferenceFullView,
 		ConferenceNotFoundView,
-		SpinnerView
+		SpinnerView,
+		SearchView
 	) {
 		MyConference.module("Conferences", function(MainModule){
 			
 			var ConferencesController = Marionette.Controller.extend(new function(){
-
 				return {
 					main: function(){
 						MyConference.mainView.currentView.header.currentView.setHeader('Conferences');
@@ -73,6 +74,13 @@ define(
 
 			MainModule.addInitializer(function(){
 				new MainRouter;
+			});
+
+			this.startWithParent = false;
+
+			MainModule.on("start", function(){
+				var searchView = new SearchView;
+				MyConference.mainView.currentView.header.currentView.search.show(searchView);
 			});
 
 		});
