@@ -144,12 +144,12 @@ var twitterCallback = {
 
 		var url = require('url');
 		var url_parts = url.parse(req.url, true);
-console.log(url_parts, req.url);
-		req.memcache.get(url_parts.oauth_token, function(token_secret){
+
+		req.memcache.get(url_parts.query.oauth_token, function(token_secret){
 			var config = {
 			    "consumerKey": cfg.twitter.consumerKey,
 			    "consumerSecret": cfg.twitter.consumerSecret,
-			    "accessToken": url_parts.oauth_token,
+			    "accessToken": url_parts.query.oauth_token,
 			    "accessTokenSecret": token_secret,
 			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
 			};
