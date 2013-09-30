@@ -177,12 +177,12 @@ var twitterCallback = {
 						var twitter = new Twitter(config);
 
 						twitter.doRequest(
-							twitter.baseUrl + '/account/verify_credentials',
+							twitter.baseUrl + '/account/verify_credentials.json',
 							function(err, response, body){
 								console.log(err, body);
 							},
 							function(body){
-								console.log('success', body)
+								console.log('success', JSON.parse(body))
 							}
 						);
 					}else{
