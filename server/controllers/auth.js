@@ -145,7 +145,7 @@ var twitterCallback = {
 		var url = require('url');
 		var url_parts = url.parse(req.url, true);
 
-		req.memcache.get(url_parts.query.oauth_token, function(token_secret){
+		req.memcache.get(url_parts.query.oauth_token, function(err, token_secret){
 			var config = {
 			    "consumerKey": cfg.twitter.consumerKey,
 			    "consumerSecret": cfg.twitter.consumerSecret,
@@ -153,7 +153,6 @@ var twitterCallback = {
 			    "accessTokenSecret": token_secret,
 			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
 			};
-			console.log(config);
 
 			var Twitter = require('twitter-js-client').Twitter;
 
