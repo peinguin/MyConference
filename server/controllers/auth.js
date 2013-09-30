@@ -160,7 +160,7 @@ var twitterCallback = {
 			twitter.getUser(
 				{},
 				function(err, response, body){
-					console.log(err, response, body);
+					console.log(err, body);
 				},
 				function(body){
 					console.log('success', body)
