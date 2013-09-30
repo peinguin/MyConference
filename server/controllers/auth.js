@@ -116,11 +116,12 @@ var twitter = {
 		}
 
 		var Twitter = require('twitter-js-client').Twitter;
-		console.log(config)
 		var twitter = new Twitter(config);
 		twitter.getOAuthRequestToken(function(oauth){
-			console.log(oauth);
-			console.log('redirect', 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.oauth_token);
+			response.writeHead(302, {
+			  'Location': 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.token
+			});
+			response.end();
 		});
 	}
 };
