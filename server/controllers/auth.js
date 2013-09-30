@@ -1,4 +1,5 @@
-var cfg = require('./../config');
+var cfg = require('./../config'),
+	url = require("url");
 
 var post = {
 	'spec': {
@@ -118,10 +119,12 @@ var twitter = {
 		var Twitter = require('twitter-js-client').Twitter;
 		var twitter = new Twitter(config);
 		twitter.getOAuthRequestToken(function(oauth){
-			res.writeHead(302, {
-			  'Location': 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.token
+			req.memcache.set(oauth.token, oauth.token_secret, function(){
+				res.writeHead(302, {
+			  	'Location': 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.token
+				});
+				res.end();
 			});
-			res.end();
 		});
 	}
 };
@@ -139,20 +142,25 @@ var twitterCallback = {
 	},
 	'action': function (req,res) {
 
-		var config = {
-		    "consumerKey": cfg.twitter.consumerKey,
-		    "consumerSecret": cfg.twitter.consumerSecret,
-		    "callBackUrl": cfg.host + twitter.spec.path.replace('{format}', 'json')
-		}
+		var url = require('url');
+		var url_parts = url.parse(req.url, true);
 
-		var Twitter = require('twitter-js-client');
+		req.memcache.get(url_parts.oauth_token, function(token_secret){
+			var config = {
+			    "consumerKey": cfg.twitter.consumerKey,
+			    "consumerSecret": cfg.twitter.consumerSecret,
+			    "accessToken": url_parts.oauth_token,
+			    "accessTokenSecret": token_secret,
+			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+			}
 
-		var twitter = new Twitter(config);
-		twitter.getUserTimeline();
-		twitter.getMentionsTimeline();
-		twitter.getHomeTimeline();
-		twitter.getReTweetsOfMe();
-		twitter.getTweet();
+			var Twitter = require('twitter-js-client');
+
+			var twitter = new Twitter(config);
+			twitter.getUser({}, function(){}, function(body){
+				console.log('success', body)
+			});
+		});
 	}
 };
 

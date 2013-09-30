@@ -1,5 +1,4 @@
 var express = require("express"),
- url = require("url"),
  swagger = require("./swagger"),
  orm = require('./orm'),
  auth = require('./auth'),
