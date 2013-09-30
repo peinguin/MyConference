@@ -173,8 +173,8 @@ var twitterCallback = {
 
 					var twitter = new Twitter(config);
 
-					twitter.getUser(
-						{},
+					twitter.doRequest(
+						'https://userstream.twitter.com/1.1/user.json',
 						function(err, response, body){
 							console.log(err, body);
 						},
