@@ -177,7 +177,7 @@ var twitterCallback = {
 						var twitter = new Twitter(config);
 
 						twitter.doRequest(
-							'https://userstream.twitter.com/1.1/user.json',
+							twitter.baseUrl + '/account/verify_credentials',
 							function(err, response, body){
 								console.log(err, body);
 							},
