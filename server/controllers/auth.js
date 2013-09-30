@@ -156,7 +156,7 @@ var twitterCallback = {
 
 			var Twitter = require('twitter-js-client').Twitter;
 
-			var twitter = new Twitter.(config);
+			var twitter = new Twitter(config);
 			twitter.getUser({}, function(){}, function(body){
 				console.log('success', body)
 			});
