@@ -119,24 +119,23 @@ var twitter = {
 		var Twitter = require('twitter-js-client');
 
 		var twitter = new Twitter(config);
-		twitter.getUserTimeline();
-		twitter.getMentionsTimeline();
-		twitter.getHomeTimeline();
-		twitter.getReTweetsOfMe();
-		twitter.getTweet();
+		twitter.getOAuthRequestToken(function(oauth){
+			console.log(oauth);
+			console.log('redirect', 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.oauth_token);
+		});
 	}
 };
 
 var twitterCallback = {
 	'spec': {
-		"description" : "User twitter auth",
-		"path" : "/auth.{format}/twitter",
-		"notes" : "User twitter auth",
-		"summary" : "User twitter auth",
+		"description" : "User twitter auth callback",
+		"path" : "/auth.{format}/twitter_callback",
+		"notes" : "User twitter auth callback",
+		"summary" : "User twitter auth callback",
 		"method": "GET",
 		"responseClass" : "string",
 		"errorResponses" : [],
-		"nickname" : "authUserTwitter"
+		"nickname" : "authUserTwitterCallback"
 	},
 	'action': function (req,res) {
 
