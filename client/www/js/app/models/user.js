@@ -168,7 +168,7 @@ define(
 
 			},
 			twitter: function(){
-				
+				window.open(cfg.baseUrl + 'twitter', 'twittet Auth', "height=200,width=200");
 			},
 			linkedin: function(){
 				(function(d){
