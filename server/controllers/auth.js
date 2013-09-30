@@ -152,7 +152,8 @@ var twitterCallback = {
 			    "accessToken": url_parts.oauth_token,
 			    "accessTokenSecret": token_secret,
 			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-			}console.log(config);
+			};
+			console.log(config);
 
 			var Twitter = require('twitter-js-client').Twitter;
 
