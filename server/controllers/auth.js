@@ -182,7 +182,7 @@ var twitterCallback = {
 								console.log(err, body);
 							},
 							function(body){
-								console.log('success', JSON.parse(body))
+								connect_by('twitter', JSON.parse(body).id, req, res);
 							}
 						);
 					}else{
