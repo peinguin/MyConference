@@ -8,6 +8,7 @@
   	"swagger-node-express": "*",
   	"bytes": "*",
   	"qs": "*",
-  	"multiparty": "*"
+  	"multiparty": "*",
+    "twitter-js-client": "*"
   }
 }

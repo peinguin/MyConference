@@ -6,6 +6,10 @@ exports.init = function(swagger) {
 	swagger.addPost(user.post);
 	swagger.addGET(user.email);
 	swagger.addPost(auth.post);
+	swagger.addPost(auth.facebook);
+	swagger.addGET(auth.twitter);
+	swagger.addPost(auth.linkedin);
+	swagger.addPost(auth.google);
 	swagger.addDELETE(auth.del);
 	swagger.addGET(conferences.get);
 	swagger.addGET(conferences.list);

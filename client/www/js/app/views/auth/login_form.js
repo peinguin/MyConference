@@ -11,7 +11,11 @@ define(
 			},
 			events:{
 				'submit form': 'login',
-				"click [href=\"#not_implemented\"]": "not_implemented"
+				"click [href=\"#not_implemented\"]": "not_implemented",
+				"click [href=\"#facebook\"]"       : "facebook",
+				"click [href=\"#twitter\"]"        : "twitter",
+				"click [href=\"#linkedin\"]"       : "linkedin",
+				"click [href=\"#google\"]"         : "google"
 			},
 			login: function(e){
 				e.preventDefault();
@@ -20,6 +24,22 @@ define(
 			not_implemented: function(e){
 				e.preventDefault();
 				alert('Not implemented yet');
+			},
+			google: function(e){
+				e.preventDefault();
+				this.model.google();
+			},
+			twitter: function(e){
+				e.preventDefault();
+				this.model.twitter();
+			},
+			linkedin: function(e){
+				e.preventDefault();
+				this.model.linkedin();
+			},
+			facebook: function(e){
+				e.preventDefault();
+				this.model.facebook();
 			}
 		});
 

@@ -117,6 +117,81 @@ define(
 						}
 					}
 				});
+			},
+			facebook: function(){console.log('facebook')
+				window.fbAsyncInit = function() {
+				    FB.init({
+				      appId      : '1410429849185535', // App ID
+				      status     : true, // check login status
+				      cookie     : true, // enable cookies to allow the server to access the session
+				      xfbml      : true  // parse XFBML
+				    });
+
+				    FB.login(function(response, a) {
+					    if (response.authResponse) {
+					    	console.log(response, a)
+					    } else {
+					        // The person cancelled the login dialog
+					    }
+					});
+
+				};
+
+				// Load the SDK asynchronously
+				(function(d){
+				     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+				     if (d.getElementById(id)) {return;}
+				     js = d.createElement('script'); js.id = id; js.async = true;
+				     js.src = "//connect.facebook.net/en_US/all.js";
+				     ref.parentNode.insertBefore(js, ref);console.log(js);
+				}(document));
+			},
+			google: function(){
+
+				window.onLoadCallback = function(){
+					gapi.auth.authorize(
+						{
+							client_id:'774864135362.apps.googleusercontent.com',
+							scope: 'https://www.googleapis.com/auth/userinfo.email&https://www.googleapis.com/auth/plus.me '
+						},
+						function(a, b, c, d, e){
+							console.log(a, b, c, d, e);
+						}
+					);
+				}
+
+				(function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js?onload=onLoadCallback';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				})();
+
+			},
+			twitter: function(){
+				
+			},
+			linkedin: function(){
+				(function(d){
+
+					var js, id = 'linkedin-afterlogin', ref = d.getElementsByTagName('script')[0];
+				     if (d.getElementById(id)) {return;}
+				     js = d.createElement('script'); js.id = id; js.async = true;js.type = 'IN/Login';
+				     js.innerHTML = '\
+				     	<script type="text/javascript">alert(\'<?js= id ?>\');console.log(IN);</script>\
+				     ';
+				     js.src = "http://platform.linkedin.com/in.js";
+				     ref.parentNode.insertBefore(js, ref);
+
+				     var js, id = 'linkedin-jssdk', ref = d.getElementsByTagName('script')[0];
+				     if (d.getElementById(id)) {return;}
+				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
+				     js.innerHTML = '\
+				     	api_key: 5i9vcxh80gl3 \
+  						authorize: true \
+				     ';
+				     js.src = "http://platform.linkedin.com/in.js";
+				     ref.parentNode.insertBefore(js, ref);
+				}(document));
 			}
 		});
 
