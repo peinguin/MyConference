@@ -119,7 +119,7 @@ var twitter = {
 		var Twitter = require('twitter-js-client').Twitter;
 		var twitter = new Twitter(config);
 		twitter.getOAuthRequestToken(function(oauth){
-			req.memcache.set(oauth.token, oauth.token_secret, function(){
+			req.memcache.set(oauth.token, oauth.token_secret, function(){console.log(oauth)
 				res.writeHead(302, {
 			  	'Location': 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.token
 				});
@@ -153,7 +153,7 @@ var twitterCallback = {
 			    "accessTokenSecret": token_secret,
 			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
 			};
-
+console.log(config)
 			var Twitter = require('twitter-js-client').Twitter;
 
 			var twitter = new Twitter(config);
