@@ -163,25 +163,32 @@ var twitterCallback = {
 					verifier: url_parts.query.oauth_verifier
 				},
 				function(oauth){
-					var config = {
-					    "consumerKey": cfg.twitter.consumerKey,
-					    "consumerSecret": cfg.twitter.consumerSecret,
-					    "accessToken": oauth.access_token,
-					    "accessTokenSecret": oauth.access_token_secret,
-					    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-					};
 
-					var twitter = new Twitter(config);
+					if(oauth.access_token){
 
-					twitter.doRequest(
-						'https://userstream.twitter.com/1.1/user.json',
-						function(err, response, body){
-							console.log(err, body);
-						},
-						function(body){
-							console.log('success', body)
-						}
-					);
+						var config = {
+						    "consumerKey": cfg.twitter.consumerKey,
+						    "consumerSecret": cfg.twitter.consumerSecret,
+						    "accessToken": oauth.access_token,
+						    "accessTokenSecret": oauth.access_token_secret,
+						    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+						};
+
+						var twitter = new Twitter(config);
+
+						twitter.doRequest(
+							'https://userstream.twitter.com/1.1/user.json',
+							function(err, response, body){
+								console.log(err, body);
+							},
+							function(body){
+								console.log('success', body)
+							}
+						);
+					}else{
+						console.log(oauth);
+						res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(oauth)}));
+					}
 				}
 			);
 		});
