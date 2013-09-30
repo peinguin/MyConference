@@ -113,9 +113,37 @@ var twitter = {
 		var config = {
 		    "consumerKey": cfg.twitter.consumerKey,
 		    "consumerSecret": cfg.twitter.consumerSecret,
-		    "accessToken": cfg.twitter.accessToken,
-		    "accessTokenSecret": cfg.twitter.accessTokenSecret,
-		    "callBackUrl": ""
+		    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+		}
+
+		var Twitter = require('twitter-js-client');
+
+		var twitter = new Twitter(config);
+		twitter.getUserTimeline();
+		twitter.getMentionsTimeline();
+		twitter.getHomeTimeline();
+		twitter.getReTweetsOfMe();
+		twitter.getTweet();
+	}
+};
+
+var twitterCallback = {
+	'spec': {
+		"description" : "User twitter auth",
+		"path" : "/auth.{format}/twitter",
+		"notes" : "User twitter auth",
+		"summary" : "User twitter auth",
+		"method": "GET",
+		"responseClass" : "string",
+		"errorResponses" : [],
+		"nickname" : "authUserTwitter"
+	},
+	'action': function (req,res) {
+
+		var config = {
+		    "consumerKey": cfg.twitter.consumerKey,
+		    "consumerSecret": cfg.twitter.consumerSecret,
+		    "callBackUrl": cfg.host + twitter.spec.path.replace('{format}', 'json')
 		}
 
 		var Twitter = require('twitter-js-client');

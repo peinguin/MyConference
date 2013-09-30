@@ -5,8 +5,8 @@ exports.memcache = {
 };
 
 exports.twitter = {
-	consumerKey: '4F1uKFddGzTyUTdDi8bKw',
-	consumerSecret: 'L8qq9PZyRg6ieKGEKhZolGC0vJWLw8iEJ88DRdyOg'
+	consumerKey: '',
+	consumerSecret: ''
 };
 
 exports.listen = 8002;
