@@ -209,4 +209,5 @@ exports.del = del;
 exports.facebook = facebook;
 exports.linkedin = linkedin;
 exports.twitter = twitter;
+exports.twitterCallback = twitterCallback;
 exports.google = google;
