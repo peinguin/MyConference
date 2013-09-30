@@ -109,23 +109,19 @@ var twitter = {
 		"nickname" : "authUserTwitter"
 	},
 	'action': function (req,res) {
-		try{
-			var config = {
-			    "consumerKey": cfg.twitter.consumerKey,
-			    "consumerSecret": cfg.twitter.consumerSecret,
-			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-			}
+		var config = {
+		    "consumerKey": cfg.twitter.consumerKey,
+		    "consumerSecret": cfg.twitter.consumerSecret,
+		    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+		}
 
-			var Twitter = require('twitter-js-client').Twitter;
-
-			var twitter = new Twitter(config);
-			twitter.getOAuthRequestToken(function(oauth){
-				console.log(oauth);
-				console.log('redirect', 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.oauth_token);
-			});
-		}catch(err){
-			console.log(err, err.stack)
-		} 
+		var Twitter = require('twitter-js-client').Twitter;
+		console.log(config)
+		var twitter = new Twitter(config);
+		twitter.getOAuthRequestToken(function(oauth){
+			console.log(oauth);
+			console.log('redirect', 'https://api.twitter.com/oauth/authenticate?oauth_token='+oauth.oauth_token);
+		});
 	}
 };
 
