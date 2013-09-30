@@ -157,9 +157,15 @@ var twitterCallback = {
 			var Twitter = require('twitter-js-client').Twitter;
 
 			var twitter = new Twitter(config);
-			twitter.getUser({}, function(){}, function(body){
-				console.log('success', body)
-			});
+			twitter.getUser(
+				{},
+				function(err, response, body){
+					console.log(err, response, body);
+				},
+				function(body){
+					console.log('success', body)
+				}
+			);
 		});
 	}
 };
