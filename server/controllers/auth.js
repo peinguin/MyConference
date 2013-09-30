@@ -117,7 +117,7 @@ var twitter = {
 			}
 
 			var Twitter = require('twitter-js-client');
-
+console.log(Twitter)
 			var twitter = new Twitter(config);
 			twitter.getOAuthRequestToken(function(oauth){
 				console.log(oauth);
