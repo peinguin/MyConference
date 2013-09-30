@@ -149,21 +149,39 @@ var twitterCallback = {
 			var config = {
 			    "consumerKey": cfg.twitter.consumerKey,
 			    "consumerSecret": cfg.twitter.consumerSecret,
-			    "accessToken": url_parts.query.oauth_token,
-			    "accessTokenSecret": token_secret,
 			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
 			};
-console.log(config)
+
 			var Twitter = require('twitter-js-client').Twitter;
 
 			var twitter = new Twitter(config);
-			twitter.getUser(
-				{},
-				function(err, response, body){
-					console.log(err, body);
+
+			twitter.getOAuthAccessToken(
+				{
+					token: url_parts.query.oauth_token,
+					token_secret: token_secret,
+					verifier: url_parts.query.oauth_verifier
 				},
-				function(body){
-					console.log('success', body)
+				function(oauth){
+					var config = {
+					    "consumerKey": cfg.twitter.consumerKey,
+					    "consumerSecret": cfg.twitter.consumerSecret,
+					    "accessToken": oauth.access_token,
+					    "accessTokenSecret": oauth.access_token_secret,
+					    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+					};
+
+					var twitter = new Twitter(config);
+
+					twitter.getUser(
+						{},
+						function(err, response, body){
+							console.log(err, body);
+						},
+						function(body){
+							console.log('success', body)
+						}
+					);
 				}
 			);
 		});
