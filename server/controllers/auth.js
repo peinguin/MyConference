@@ -116,8 +116,8 @@ var twitter = {
 			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
 			}
 
-			var Twitter = require('twitter-js-client');
-console.log(Twitter)
+			var Twitter = require('twitter-js-client').Twitter;
+
 			var twitter = new Twitter(config);
 			twitter.getOAuthRequestToken(function(oauth){
 				console.log(oauth);
