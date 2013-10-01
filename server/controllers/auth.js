@@ -101,6 +101,57 @@ var linkedin = {
 		"nickname" : "authUserlinkedin"
 	},
 	'action': function (req,res) {
+
+		var options = {
+		    host: 'api.linkedin.com',
+		    port: 443,
+		    path: '/v1/people::(~):(id,email)',
+		    method: 'GET',
+		    headers: {
+		        'Content-Type': 'application/json',
+		        'oauth_token': req.body.linkedinKEY
+		    }
+		};
+	    var r = require("https").request(options, function(res)
+	    {
+	        var output = '';
+	        console.log(options.host + ':' + res.statusCode);
+	        res.setEncoding('utf8');
+
+	        res.on('data', function (chunk) {
+	            output += chunk;
+	        });
+
+	        res.on('end', function() {
+	            var obj = JSON.parse(output);
+	            console.log(res.statusCode, obj);
+	        });
+	    });
+
+	    r.on('error', function(err) {
+	        console.log(err)
+	    });
+
+	    r.end();
+
+		/**	
+			Accept:* /*
+			Accept-Encoding:gzip,deflate,sdch
+			Accept-Language:uk,en-US;q=0.8,en;q=0.6,ru;q=0.4
+			Cache-Control:no-cache
+			Connection:keep-alive
+			Content-type:application/json
+			Cookie:bcookie="v=2&2154b6a5-3f82-4532-8910-df8837a151fe"; lidc="b=LB17:g=1:u=1:i=1380611805:t=1380698205:s=1380458451"; __qca=P0-32724600-1380612982582; lang="v=2&lang=en-us"
+			Host:api.linkedin.com
+			oauth_token:0b90GltkSJiNmTgM46_T1w8upkd1mNHWOGzD
+			Pragma:no-cache
+			Referer:https://api.linkedin.com/uas/js/xdrpc.html?v=0.0.1190-RC1.30364-1408
+			User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
+			X-Cross-Domain-Origin:http://myconference.php.poltava.ua
+			X-HTTP-Method-Override:GET
+			x-li-format:json
+			X-Requested-With:IN.XDCall
+		**/
 	}
 };
 

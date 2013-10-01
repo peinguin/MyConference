@@ -194,11 +194,13 @@ define(
 				window.onLoadCallback = function(){
 					IN.User.authorize(
 						function(){
-							console.log('IN')
-							IN.API.Profile("me")
-							    .result( function(me) {
-							      console.log(me);
-							});
+							$.post(
+					    		cfg.baseUrl + 'auth.json/linkedin',
+					    		{linkedinKEY: IN.ENV.auth.oauth_token},
+					    		function(data){
+					    			console.log(data);
+					    		}
+					    	);
 						}
 					)
 				};
