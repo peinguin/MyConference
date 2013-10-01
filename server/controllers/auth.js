@@ -10,8 +10,7 @@ var connect_by = function(service, id, email, req, res){
 		if(err){
 			res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
 		}else{
-			if(user){
-				console.log('user', user)
+			if(user.length > 0){
 				user = user[0];
 				if(req.user){
 					if(req.user == user.id){
