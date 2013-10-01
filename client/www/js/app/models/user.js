@@ -167,7 +167,7 @@ define(
 			},
 			google: function(){
 
-				window.onGoogleLoadCallback = function(){
+				window.tghfhfgfgfg = function(){
 					gapi.auth.authorize(
 						{
 							client_id:'774864135362.apps.googleusercontent.com',
@@ -177,13 +177,13 @@ define(
 
 						}
 					);
-				}
+				};
 
 				(function() {
 					var id = 'google-api-script';
-					if (document.getElementById(id)) {console.log(document.getElementById(id)); return window.onGoogleLoadCallback();}
+					if (document.getElementById(id)) {console.log(document.getElementById(id)); return window.tghfhfgfgfg();}
 				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.id = id;
-				    po.src = 'https://apis.google.com/js/plusone.js?onload=onGoogleLoadCallback';
+				    po.src = 'https://apis.google.com/js/plusone.js?onload=tghfhfgfgfg';
 				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);console.log(s);
 				})();
 			},
