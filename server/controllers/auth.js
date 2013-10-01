@@ -69,7 +69,7 @@ var facebook = {
 		"nickname" : "authUserFacebook"
 	},
 	'action': function (req,res) {
-		var FB = new (require('facebook-node-sdk'))({ appID: cfg.facebook.appID, secret: cfg.facebook.secret }});
+		var FB = new (require('facebook-node-sdk'))({ appID: cfg.facebook.appID, secret: cfg.facebook.secret });
 
 		FB.setPersistentData('access_token', req.body.FacebookKEY);
 
