@@ -118,7 +118,7 @@ define(
 					}
 				});
 			},
-			facebook: function(){console.log('facebook')
+			facebook: function(){
 				window.fbAsyncInit = function() {
 				    FB.init({
 				      appId      : '1410429849185535', // App ID
@@ -133,6 +133,10 @@ define(
 					    } else {
 					        // The person cancelled the login dialog
 					    }
+					});
+
+					FB.getLoginStatus(function(response) {
+					    console.log(response);
 					});
 
 				};
