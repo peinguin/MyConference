@@ -339,7 +339,7 @@ var google = {
 	        });
 
 	        resp.on('end', function() {
-	            connect_by('linkedin', JSON.parse(output).id, JSON.parse(output).email, req, res);
+	            connect_by('google', JSON.parse(output).id, JSON.parse(output).email, req, res);
 	        });
 	    });
 
