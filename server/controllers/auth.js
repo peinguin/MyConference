@@ -255,22 +255,23 @@ var google = {
 
 		var oauth2Client = new OAuth2Client(cfg.google.id, cfg.google.secret);
 
-			oauth2Client.credentials = {
-			  access_token: req.body.googleKEY
-			};
-
-			googleapis
-			  .discover('plus', 'v1')
-			  .execute(function(err, client) {
-
-				client
-				  .plus.people.get({ userId: 'me' })
-				  .withAuthClient(oauth2Client)
-				  .execute(function(a, b, c, d, e){
-				  	console.log(a, b, c, d, e)
-				  });
-			}
+		oauth2Client.credentials = {
+		  access_token: req.body.googleKEY
 		};
+
+		googleapis
+		  .discover('plus', 'v1')
+		  .execute(function(err, client) {
+
+			client
+			  .plus.people.get({ userId: 'me' })
+			  .withAuthClient(oauth2Client)
+			  .execute(function(a, b, c, d, e){
+			  	console.log(a, b, c, d, e)
+			  });
+		});
+	}
+}
 
 var del = {
 	'spec': {
