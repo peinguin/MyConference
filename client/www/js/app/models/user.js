@@ -119,15 +119,9 @@ define(
 				});
 			},
 			facebook: function(){
-				window.fbAsyncInit = function() {
-				    FB.init({
-				      appId      : '1410429849185535', // App ID
-				      status     : true, // check login status
-				      cookie     : true, // enable cookies to allow the server to access the session
-				      xfbml      : true  // parse XFBML
-				    });
 
-				    var sendAccessToken = function(response){
+				var afterInit = function(){
+					var sendAccessToken = function(response){
 				    	$.post(
 				    		cfg.baseUrl + 'auth.json/facebook',
 				    		{FacebookKEY: response.authResponse.accessToken},
@@ -150,13 +144,22 @@ define(
 							sendAccessToken(response);
 						}
 					});
+				}
 
+				window.fbAsyncInit = function() {
+				    FB.init({
+				      appId      : '1410429849185535', // App ID
+				      status     : true, // check login status
+				      cookie     : true, // enable cookies to allow the server to access the session
+				      xfbml      : true  // parse XFBML
+				    });
+				    afterInit();
 				};
 
 				// Load the SDK asynchronously
 				(function(d){
 				     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				     if (d.getElementById(id)) {return;}
+				     if (d.getElementById(id)) {return afterInit();}
 				     js = d.createElement('script'); js.id = id; js.async = true;
 				     js.src = "//connect.facebook.net/en_US/all.js";
 				     ref.parentNode.insertBefore(js, ref);
