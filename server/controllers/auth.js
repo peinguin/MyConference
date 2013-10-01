@@ -123,8 +123,8 @@ var linkedin = {
 	        });
 
 	        res.on('end', function() {
-	            var obj = JSON.parse(output);
-	            console.log(res.statusCode, obj);
+	           // var obj = JSON.parse(output);
+	            console.log(res.statusCode, output);
 	        });
 	    });
 
@@ -140,7 +140,6 @@ var linkedin = {
 			Accept-Language:uk,en-US;q=0.8,en;q=0.6,ru;q=0.4
 			Cache-Control:no-cache
 			Connection:keep-alive
-			Content-type:application/json
 			Cookie:bcookie="v=2&2154b6a5-3f82-4532-8910-df8837a151fe"; lidc="b=LB17:g=1:u=1:i=1380611805:t=1380698205:s=1380458451"; __qca=P0-32724600-1380612982582; lang="v=2&lang=en-us"
 			Host:api.linkedin.com
 			oauth_token:0b90GltkSJiNmTgM46_T1w8upkd1mNHWOGzD
