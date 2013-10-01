@@ -127,9 +127,9 @@ define(
 				      xfbml      : true  // parse XFBML
 				    });
 
-					FB.getLoginStatus(function(response) {
+					FB.getLoginStatus(function(response) {console.log('dddddd')
 						if(response.status == "not_authorized"){
-						    FB.login(function(response, a) {
+						    FB.login(function(response, a) {console.log('dddddd1')
 							    if (response.authResponse) {
 							    	console.log(response, a)
 							    } else {
