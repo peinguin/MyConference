@@ -141,9 +141,9 @@ define(
 							    } else {
 							        console.log(response, a)
 							    }
-							});
+							}, {scope:'email'});
 						}
-					}, {scope:'email'});
+					});
 
 				};
 
