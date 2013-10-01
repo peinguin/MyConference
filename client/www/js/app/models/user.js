@@ -40,10 +40,10 @@ define(
 		}
 
 		var renew_headers = function(){
-			if(Storage.get('API_KEY')){console.log(Storage.get('API_KEY'))
+			if(Storage.get('API_KEY')){
 				var headers = {};
 				headers[cfg.authHeader] = Storage.get('API_KEY');
-				$.ajaxSetup({headers: headers});console.log({headers: headers})
+				$.ajaxSetup({headers: headers});
 			}
 		}
 
