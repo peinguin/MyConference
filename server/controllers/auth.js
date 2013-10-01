@@ -195,9 +195,7 @@ var linkedin = {
 
 	        resp.on('end', function() {
 	        	var data = JSON.parse(output);
-	        	console.log(data)
-
-	            connect_by('linkedin', data.vaues[0].id, data.vaues[0].email, req, res);
+	            connect_by('linkedin', data.values[0].id, data.values[0].emailAddress, req, res);
 	        });
 	    });
 
