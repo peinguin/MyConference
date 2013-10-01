@@ -167,7 +167,7 @@ define(
 			},
 			google: function(){
 
-				window.onLoadCallback = function(){
+				window.onGoogleLoadCallback = function(){
 					gapi.auth.authorize(
 						{
 							client_id:'774864135362.apps.googleusercontent.com',
@@ -181,9 +181,9 @@ define(
 
 				(function() {
 					var id = 'google-api-script';
-					if (document.getElementById(id)) {return window.onLoadCallback();}
+					if (document.getElementById(id)) {return window.onGoogleLoadCallback();}
 				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.id = id;
-				    po.src = 'https://apis.google.com/js/plusone.js?onload=onLoadCallback';
+				    po.src = 'https://apis.google.com/js/plusone.js?onload=onGoogleLoadCallback';
 				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 				})();
 			},
