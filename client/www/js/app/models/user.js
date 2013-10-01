@@ -174,10 +174,10 @@ define(
 							client_id:'774864135362.apps.googleusercontent.com',
 							scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me'
 						},
-						function(a, b, c ,d ,e){
+						function(a){
 							$.post(
 					    		cfg.baseUrl + 'auth.json/linkedin',
-					    		{linkedinKEY: IN.ENV.auth.oauth_token},
+					    		{googleKEY: a.access_token},
 					    		function(data){
 					    			console.log(data);
 					    		}
