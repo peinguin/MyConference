@@ -55,6 +55,7 @@ var connect_by = function(service, id, email, req, res){
 							    }else{
 
 							    	var finded_user = items[0];
+							    	console.log('items', items)
 
 							    	req.generate_code(function(code){
 										req.memcache.set(code, finded_user.id, function(){
