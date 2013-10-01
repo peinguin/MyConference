@@ -250,26 +250,30 @@ var google = {
 		"nickname" : "authUserGoogle"
 	},
 	'action': function (req,res) {
-		var googleapis = require('googleapis'),
-		    OAuth2Client = googleapis.OAuth2Client;
 
-		var oauth2Client = new OAuth2Client(cfg.google.id, cfg.google.secret);
-
-		oauth2Client.credentials = {
-		  access_token: req.body.googleKEY
+		var options = {
+		    host: 'www.googleapis.com',
+		    port: 443,
+		    path: '/oauth2/v1/userinfo?access_token='+req.body.googleKEY,
+		    method: 'GET',
 		};
+	    var r = require("https").request(options, function(res)
+	    {
+	        var output = '';
+	        res.setEncoding('utf8');
 
-		googleapis
-		  .discover('plus', 'v1')
-		  .execute(function(err, client) {
-console.log(oauth2Client)
-			client
-			  .plus.people.get({ userId: 'me' })
-			  .withAuthClient(oauth2Client)
-			  .execute(function(a/*, b, c*/){
-			  	console.log(a/*, b, c*/)
-			  });
-		});
+	        res.on('data', function (chunk) {
+	            output += chunk;
+	        });
+
+	        res.on('end', function() {
+	        	console.log(output);
+	            //connect_by('linkedin', JSON.parse(output).id, req, res);
+	        });
+	    });
+
+	    r.end();
+
 	}
 }
 
