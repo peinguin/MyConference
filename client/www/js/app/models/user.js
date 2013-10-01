@@ -190,6 +190,11 @@ define(
 				window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=200,width=400");
 			},
 			linkedin: function(){
+
+				window.onLoadCallback = function(){
+					
+				}
+
 				(function(d){
 
 					var js, id = 'linkedin-afterlogin', ref = d.getElementsByTagName('script')[0];
@@ -202,10 +207,12 @@ define(
 				     ref.parentNode.insertBefore(js, ref);
 
 				     var js, id = 'linkedin-jssdk', ref = d.getElementsByTagName('script')[0];
-				     if (d.getElementById(id)) {return;}
+				     if (d.getElementById(id)) {return window.onLoadCallback();}
 				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
 				     js.innerHTML = '\
-				     	api_key: 5i9vcxh80gl3, authorize: true \
+				     	api_key: \'5i9vcxh80gl3\' \
+				     	authorize: true \
+				     	onLoad: onLoadCallback \
 				     ';
 				     js.src = "http://platform.linkedin.com/in.js";
 				     ref.parentNode.insertBefore(js, ref);
