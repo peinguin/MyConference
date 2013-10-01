@@ -25,6 +25,7 @@ define(
 				(new AlertView).render(Helper.getErrorStringInHtml(xhr));
 			}else{
 				if(xhr.getResponseHeader(cfg.authHeader)){
+					console.log(xhr.getResponseHeader(cfg.authHeader));
 					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
 				}
 				model.set({
