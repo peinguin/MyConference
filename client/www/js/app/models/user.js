@@ -176,7 +176,7 @@ define(
 						},
 						function(a){
 							$.post(
-					    		cfg.baseUrl + 'auth.json/linkedin',
+					    		cfg.baseUrl + 'auth.json/google',
 					    		{googleKEY: a.access_token},
 					    		function(data){
 					    			console.log(data);
