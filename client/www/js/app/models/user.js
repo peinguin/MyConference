@@ -20,6 +20,26 @@ define(
 		Helper
 	) {
 		
+		var process_social_resporce = function(model, data, xhr){
+
+			console.log(data);
+
+			if(data.error){
+				(new AlertView).render(Helper.getErrorStringInHtml(xhr));
+			}else{
+				Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
+				model.set({
+					email: user.email,
+					isGuest: false,
+					twitter: user.twitter,
+					google: user.google,
+					facebook: user.facebook,
+					linkedin: user.linkedin
+				});
+				renew_headers();
+			}
+		}
+
 		var renew_headers = function(){
 			if(Storage.get('API_KEY')){
 				var headers = {};
@@ -35,7 +55,11 @@ define(
 		var userModel = Backbone.Model.extend({
 			defaults: {
 				isGuest: undefined,
-				email: undefined
+				email: undefined,
+				twitter: undefined,
+				google: undefined,
+				facebook: undefined,
+				linkedin: undefined
 			},
 			getEmail: function(){
 				var model = this;
@@ -120,13 +144,15 @@ define(
 			},
 			facebook: function(){
 
+				var model = this;
+
 				var afterInit = function(){
 					var sendAccessToken = function(response){
 				    	$.post(
 				    		cfg.baseUrl + 'auth.json/facebook',
 				    		{FacebookKEY: response.authResponse.accessToken},
-				    		function(data){
-				    			console.log(data);
+				    		function(data, message, xhr){
+				    			process_social_resporce(model, data, xhr);
 				    		}
 				    	);
 				    }
@@ -167,6 +193,8 @@ define(
 			},
 			google: function(){
 
+				var model = this;
+
 				window.onGoogleLoad = function(){
 
 					gapi.auth.authorize(
@@ -178,8 +206,8 @@ define(
 							$.post(
 					    		cfg.baseUrl + 'auth.json/google',
 					    		{googleKEY: a.access_token},
-					    		function(data){
-					    			console.log(data);
+					    		function(data, message, xhr){
+					    			process_social_resporce(model, data, xhr);
 					    		}
 					    	);
 						}
@@ -195,9 +223,12 @@ define(
 				})();
 			},
 			twitter: function(){
+				var model = this;
 				window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=200,width=400");
 			},
 			linkedin: function(){
+
+				var model = this;
 
 				window.onLinkedinLoad = function(){
 					IN.User.authorize(
@@ -205,8 +236,8 @@ define(
 							$.post(
 					    		cfg.baseUrl + 'auth.json/linkedin',
 					    		{linkedinKEY: IN.ENV.auth.oauth_token},
-					    		function(data){
-					    			console.log(data);
+					    		function(data, message, xhr){
+					    			process_social_resporce(model, data, xhr);
 					    		}
 					    	);
 						}

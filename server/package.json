@@ -10,7 +10,6 @@
   	"qs": "*",
   	"multiparty": "*",
     "twitter-js-client": "*",
-    "facebook-node-sdk": "*",
-    "googleapis": "*"
+    "facebook-node-sdk": "*"
   }
 }

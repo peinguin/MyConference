@@ -1,6 +1,71 @@
 var cfg = require('./../config'),
 	url = require("url");
 
+var connect_by = function(service, id, email, req, res){
+
+	var cond = {};
+	cond[service] = id;
+
+	req.db.models.users.find(cond, function(err, user){
+		if(err){
+			res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
+		}else{
+			if(user){
+				if(req.user){
+					if(req.user == user.id){
+						res.send(200, JSON.stringify(user));
+					}else{
+						res.send(401, JSON.stringify({error:"This "+service+" account already used by other user"}));
+					}
+				}else{
+					user[service] = id;
+				    user.save(function (err) {
+						req.generate_code(function(code){
+							req.memcache.set(code, user.id, function(){
+								res.header(cfg.header,  code);
+								res.send(JSON.stringify(user));
+							});
+						});
+					});
+				}
+			}else{
+				if(req.user){
+					req.db.models.users.find(req.user, function(err, user){
+						user[service] = id;
+					    user.save(function (err) {
+							res.send(JSON.stringify(user));
+						});
+					});
+				}else{
+					var user = {
+						email: email
+					}
+					user[service] = id;
+
+					req.db.models.users.create(
+						[user], function (err, items) {
+						    if(err){
+						    	res.send(JSON.stringify(err));
+						    }else{
+
+						    	var finded_user = items[0];
+						    	console.log('finded_user', finded_user);
+
+						    	req.generate_code(function(code){
+									req.memcache.set(code, finded_user.id, function(){
+										res.header(cfg.header,  code);
+										res.send(JSON.stringify(finded_user));
+									});
+								});
+						    }
+						}
+					);
+				}
+			}
+		}
+	});
+}
+
 var post = {
 	'spec': {
 		"description" : "User auth",
@@ -74,7 +139,7 @@ var facebook = {
 		FB.setAccessToken(req.body.FacebookKEY);
 
 		FB.api('/me', function(err, data) {
-			connect_by('facebook', JSON.parse(body).id, req, res);
+			connect_by('facebook', JSON.parse(body).id, JSON.parse(body).email, req, res);
 		});
 	}
 };
@@ -123,7 +188,7 @@ var linkedin = {
 	        });
 
 	        res.on('end', function() {
-	            connect_by('linkedin', JSON.parse(output).vaues[0].id, req, res);
+	            connect_by('linkedin', JSON.parse(output).vaues[0].id, JSON.parse(output).vaues[0].email, req, res);
 	        });
 	    });
 
@@ -215,7 +280,7 @@ var twitterCallback = {
 								console.log(err, body);
 							},
 							function(body){
-								connect_by('twitter', JSON.parse(body).id, req, res);
+								connect_by('twitter', JSON.parse(body).id, undefined, req, res);
 							}
 						);
 					}else{
@@ -267,8 +332,7 @@ var google = {
 	        });
 
 	        res.on('end', function() {
-	        	console.log(output);
-	            //connect_by('linkedin', JSON.parse(output).id, req, res);
+	            connect_by('linkedin', JSON.parse(output).id, JSON.parse(output).email, req, res);
 	        });
 	    });
 
