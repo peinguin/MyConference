@@ -71,9 +71,7 @@ var facebook = {
 	'action': function (req,res) {
 		var FB = new (require('facebook-node-sdk'))({ appId: cfg.facebook.appID, secret: cfg.facebook.secret });
 
-		FB.setPersistentData('access_token', req.body.FacebookKEY);
-
-		console.log(FB, req.body.FacebookKEY, { appId: cfg.facebook.appID, secret: cfg.facebook.secret })
+		FB.setAccessToken(req.body.FacebookKEY);
 
 		FB.api('/me', function(err, data) {
 		  console.log(data, err); // => { id: ... }
