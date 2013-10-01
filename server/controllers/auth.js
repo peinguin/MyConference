@@ -69,7 +69,26 @@ var facebook = {
 		"nickname" : "authUserFacebook"
 	},
 	'action': function (req,res) {
-		
+		var FB = new (require('facebook-node-sdk'))({ appID: cfg.facebook.appID, secret: cfg.facebook.secret }});
+
+		FB.setPersistentData('access_token', req.body.FacebookKEY);
+
+
+
+		var path = '/me?' + namespace + ':' + action_type_name
+		var body = {
+		     access_token:  ,
+		     myAction : myCustomObjectURL
+		}
+		FB.api( path, 'post', body, function( res )
+		{
+		    if( res.error ) {
+		        console.log( 'the call to open graph failed: ' + res.error.message );
+		    }
+		    else {
+		        console.log( 'success' )
+		    }
+		})
 	}
 };
 

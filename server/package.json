@@ -9,6 +9,7 @@
   	"bytes": "*",
   	"qs": "*",
   	"multiparty": "*",
-    "twitter-js-client": "*"
+    "twitter-js-client": "*",
+    "facebook-node-sdk": "*"
   }
 }

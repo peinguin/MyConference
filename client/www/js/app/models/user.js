@@ -128,10 +128,16 @@ define(
 				    });
 
 					FB.getLoginStatus(function(response) {
-						if(response.status == "not_authorized"){console.log('fff')
-						    FB.login(function(response, a) {console.log('dddddd1')
+						if(response.status == "not_authorized"){
+						    FB.login(function(response, a) {
 							    if (response.authResponse) {
-							    	console.log(response, a)
+							    	$.post(
+							    		cfg.baseUrl + 'auth.json/facebook',
+							    		{FacebookKEY: response.authResponse.accessToken},
+							    		function(data){
+							    			console.log(data);
+							    		}
+							    	);
 							    } else {
 							        console.log(response, a)
 							    }

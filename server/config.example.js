@@ -9,5 +9,10 @@ exports.twitter = {
 	consumerSecret: ''
 };
 
+exports.facebook = {
+	secret: '',
+	appID: ''
+};
+
 exports.listen = 8002;
 exports.host = 'http://myconference.php.poltava.ua';
