@@ -209,7 +209,7 @@ define(
 				     if (d.getElementById(id)) {return window.onLoadCallback();}
 				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
 				     js.innerHTML = 
-				     	'api_key: 5i9vcxh80gl3 \
+				     	'api_key: 5i9vcxh80gl3\
 				     	authorize: true \
 				     	onLoad: onLoadCallback';
 				     js.src = "http://platform.linkedin.com/in.js";
