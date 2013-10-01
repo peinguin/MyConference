@@ -35,6 +35,7 @@ var generate_code = function(callback){
 
 exports.init = function(app) {
 	app.use(function(req, res, next){
+		console.log(req.headers)
 		client.get(
 			req.headers[cfg.header.toLowerCase()],
 			function(error, result){
