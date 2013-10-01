@@ -74,7 +74,7 @@ var facebook = {
 		FB.setAccessToken(req.body.FacebookKEY);
 
 		FB.api('/me', function(err, data) {
-		  console.log(data, err); // => { id: ... }
+			connect_by('facebook', JSON.parse(body).id, req, res);
 		});
 	}
 };
