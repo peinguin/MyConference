@@ -119,7 +119,7 @@ define(
 				});
 			},
 			facebook: function(){
-				window.fbAsyncInit = function() {console.log('ddd')
+				window.fbAsyncInit = function() {
 				    FB.init({
 				      appId      : '1410429849185535', // App ID
 				      status     : true, // check login status
@@ -128,7 +128,7 @@ define(
 				    });
 
 					FB.getLoginStatus(function(response) {
-						if(response.status = "not_authorized"){
+						if(response.status == "not_authorized"){
 						    FB.login(function(response, a) {
 							    if (response.authResponse) {
 							    	console.log(response, a)
