@@ -12,7 +12,7 @@ define(
 
 		MyConference.module("Auth", function(AuthModule){
 
-			var User = new UserModel;
+			User = undefined;
 
 			var AuthController = Marionette.Controller.extend({
 				register: function(){
@@ -43,6 +43,7 @@ define(
 			});
 
 			AuthModule.addInitializer(function(){
+				User = new UserModel;
 				new AuthRouter;
 			});
 
