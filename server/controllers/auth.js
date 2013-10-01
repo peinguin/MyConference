@@ -254,11 +254,11 @@ var google = {
 		    OAuth2Client = googleapis.OAuth2Client;
 
 		var oauth2Client = new OAuth2Client(cfg.google.id, cfg.google.secret);
-console.log(oauth2Client.credential)
+console.log(oauth2Client.credentials)
 		oauth2Client.credentials = {
 		  access_token: req.body.googleKEY
 		};
-console.log(oauth2Client.credential)
+console.log(oauth2Client.credentials)
 		googleapis
 		  .discover('plus', 'v1')
 		  .execute(function(err, client) {
