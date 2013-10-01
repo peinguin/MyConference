@@ -128,8 +128,8 @@ define(
 				    });
 
 					FB.getLoginStatus(function(response) {
-						if(response.status == "not_authorized"){
-						    FB.login(function(response, a) {
+						if(response.status == "not_authorized"){console.log(response.status)
+						    FB.login(function(response, a) {console.log(response, a)
 							    if (response.authResponse) {
 							    	$.post(
 							    		cfg.baseUrl + 'auth.json/facebook',
