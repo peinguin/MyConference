@@ -21,9 +21,8 @@ var connect_by = function(service, id, email, req, res){
 					}else{
 						res.send(401, JSON.stringify({error:"This "+service+" account already used by other user"}));
 					}
-				}else{console.log('sdsdsd')
+				}else{
 					req.generate_code(function(code){
-						console.log(code, user.id)
 						req.memcache.set(code, user.id, function(){
 							res.header(cfg.header,  code);
 							res.send(JSON.stringify(user));
@@ -56,10 +55,8 @@ var connect_by = function(service, id, email, req, res){
 							    }else{
 
 							    	var finded_user = items[0];
-							    	console.log('items', items)
 
 							    	req.generate_code(function(code){
-							    		console.log(code, finded_user.id)
 										req.memcache.set(code, finded_user.id, function(){
 											res.header(cfg.header,  code);
 											res.send(JSON.stringify(finded_user));
