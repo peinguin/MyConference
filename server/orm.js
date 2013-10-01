@@ -10,7 +10,7 @@ exports.init = function (app) {
 		        twitter  : Number,
 		        facebook : Number,
 		        google   : Number,
-		        linkedin : Number
+		        linkedin : String
 		    });
 		    db.define("conferences", {
 		        id          : Number,
