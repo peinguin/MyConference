@@ -173,8 +173,8 @@ define(
 							client_id:'774864135362.apps.googleusercontent.com',
 							scope: 'https://www.googleapis.com/auth/userinfo.email&https://www.googleapis.com/auth/plus.me '
 						},
-						function(a, b, c, d, e){
-							console.log(a, b, c, d, e);
+						function(){
+
 						}
 					);
 				}
@@ -193,8 +193,12 @@ define(
 
 				window.onLoadCallback = function(){
 					IN.User.authorize(
-						function(a, b, c ,d , e){
-							console.log(a, b, c ,d , e)
+						function(){
+							console.log('IN')
+							IN.API.Profile("me")
+							    .result( function(me) {
+							      console.log(me);
+							});
 						}
 					)
 				};
