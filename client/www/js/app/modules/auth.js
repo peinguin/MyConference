@@ -50,6 +50,8 @@ define(
 				return User;
 			}
 
+			this.startWithParent = false;
+
 		});
 
 		return MyConference.Auth;

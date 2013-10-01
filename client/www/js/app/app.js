@@ -29,16 +29,18 @@ define(
 			}
 		});
 		
-		MyConference.on("initialize:after", function(options){
-
-			var mainLayout = new MainLayout;
+		MyConference.addInitializer(function(options){
+		 	var mainLayout = new MainLayout;
 
 			MyConference.mainView.show(mainLayout);
 			var headerView = new HeaderView;
 			mainLayout.header.show(headerView);
 
 			MyConference.Conferences.start();
+			MyConference.Auth.start();
+		});
 
+		MyConference.on("initialize:after", function(options){
 			Backbone.history.start();
 		});
 
