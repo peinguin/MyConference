@@ -205,7 +205,7 @@ define(
 				     if (d.getElementById(id)) {return;}
 				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
 				     js.innerHTML = '\
-				     	api_key: 5i9vcxh80gl3; authorize: true \
+				     	api_key: 5i9vcxh80gl3, authorize: true \
 				     ';
 				     js.src = "http://platform.linkedin.com/in.js";
 				     ref.parentNode.insertBefore(js, ref);
