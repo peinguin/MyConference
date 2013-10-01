@@ -194,7 +194,10 @@ var linkedin = {
 	        });
 
 	        resp.on('end', function() {
-	            connect_by('linkedin', JSON.parse(output).vaues[0].id, JSON.parse(output).vaues[0].email, req, res);
+	        	var data = JSON.parse(output);
+	        	console.log(data)
+
+	            connect_by('linkedin', data.vaues[0].id, data.vaues[0].email, req, res);
 	        });
 	    });
 
