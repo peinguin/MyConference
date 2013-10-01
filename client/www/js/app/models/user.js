@@ -182,9 +182,9 @@ define(
 				(function() {
 					var id = 'google-api-script';
 					if (document.getElementById(id)) {return window.onLoadCallback();}
-				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.id = id;
 				    po.src = 'https://apis.google.com/js/plusone.js?onload=onLoadCallback';
-				    var s = document.getElementsByTagName('script')[0]; s.id = id; s.parentNode.insertBefore(po, s);
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 				})();
 			},
 			twitter: function(){
