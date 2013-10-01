@@ -38,11 +38,11 @@ var connect_by = function(service, id, email, req, res){
 						});
 					});
 				}else{
-					req.db.models.users.find({email: email}, function(err, user){
+					req.db.models.users.find({email: email}, function(err, finded_user){
 
 						var user = {};
 
-						if(user.length == 0){
+						if(finded_user.length == 0){
 							user.email = email;
 						}
 
