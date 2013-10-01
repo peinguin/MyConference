@@ -179,16 +179,16 @@ var linkedin = {
 		        'x-li-format':'json'
 		    }
 		};
-	    var r = require("https").request(options, function(res)
+	    var r = require("https").request(options, function(resp)
 	    {
 	        var output = '';
-	        res.setEncoding('utf8');
+	        resp.setEncoding('utf8');
 
-	        res.on('data', function (chunk) {
+	        resp.on('data', function (chunk) {
 	            output += chunk;
 	        });
 
-	        res.on('end', function() {
+	        resp.on('end', function() {
 	            connect_by('linkedin', JSON.parse(output).vaues[0].id, JSON.parse(output).vaues[0].email, req, res);
 	        });
 	    });
@@ -323,16 +323,16 @@ var google = {
 		    path: '/oauth2/v1/userinfo?access_token='+req.body.googleKEY,
 		    method: 'GET',
 		};
-	    var r = require("https").request(options, function(res)
+	    var r = require("https").request(options, function(resp)
 	    {
 	        var output = '';
-	        res.setEncoding('utf8');
+	        resp.setEncoding('utf8');
 
-	        res.on('data', function (chunk) {
+	        resp.on('data', function (chunk) {
 	            output += chunk;
 	        });
 
-	        res.on('end', function() {
+	        resp.on('end', function() {
 	            connect_by('linkedin', JSON.parse(output).id, JSON.parse(output).email, req, res);
 	        });
 	    });
