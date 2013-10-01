@@ -105,7 +105,7 @@ var linkedin = {
 		var options = {
 		    host: 'api.linkedin.com',
 		    port: 443,
-		    path: '/v1/people::(~):(id,email)',
+		    path: '/v1/people::(~):(id,email-address)',
 		    method: 'GET',
 		    headers: {
 		        'Content-Type': 'application/json',
