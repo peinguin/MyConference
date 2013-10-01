@@ -168,6 +168,9 @@ define(
 			google: function(){
 
 				window.onGoogleLoad = function(){
+
+					gapi.client.setApiKey(apiKey);
+
 					gapi.auth.authorize(
 						{
 							client_id:'774864135362.apps.googleusercontent.com',
@@ -183,8 +186,8 @@ define(
 					var id = 'google-api-script';
 					if (document.getElementById(id)) { return window.onGoogleLoad();}
 				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.id = id;
-				    po.src = 'https://apis.google.com/js/plusone.js?onload=onGoogleLoad';
-				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);console.log(s);
+				    po.src = 'https://apis.google.com/js/client.js??onload=onGoogleLoad';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 				})();
 			},
 			twitter: function(){
