@@ -116,7 +116,6 @@ var linkedin = {
 	    var r = require("https").request(options, function(res)
 	    {
 	        var output = '';
-	        console.log(options.host + ':' + res.statusCode);
 	        res.setEncoding('utf8');
 
 	        res.on('data', function (chunk) {
@@ -124,8 +123,7 @@ var linkedin = {
 	        });
 
 	        res.on('end', function() {
-	            var obj = JSON.parse(output);
-	            console.log(obj);
+	            connect_by('linkedin', JSON.parse(output).vaues[0].id, req, res);
 	        });
 	    });
 
