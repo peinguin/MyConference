@@ -78,6 +78,20 @@ define(
 					}
 				});
 			},
+			showHeader: function(){
+
+				var model = this;
+
+				if(model.get('isGuest') === false){
+					var userInfo = new UserInfo({model: model});
+					MyConference.mainView.currentView.header.currentView.auth.show(userInfo);
+				}else{
+					if(MyConference.mainView.currentView){
+						var loginForm = new LoginForm({model: model});
+						MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
+					}
+				}
+			},
 			initialize: function(){
 
 				var model = this;
@@ -85,13 +99,7 @@ define(
 				renew_headers();
 
 				this.on('change:isGuest', function(){
-					if(model.get('isGuest') === false){
-						var userInfo = new UserInfo({model: model});
-						MyConference.mainView.currentView.header.currentView.auth.show(userInfo);
-					}else{
-						var loginForm = new LoginForm({model: model});
-						MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
-					}
+					model.showHeader();
 				})
 
 				this.getEmail();

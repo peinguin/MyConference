@@ -1,10 +1,12 @@
 define(
 	[
-		'marionette', 'text!app/templates/header.htt'
+		'marionette', 'text!app/templates/header.htt',
+		'app/app'
 	],
 	function (
 		Marionette,
-		template
+		template,
+		MyConference
 	) {
 		var HeaderView = Marionette.Layout.extend({
 			model: {title: undefined, toJSON: function(){return this;}},
@@ -17,6 +19,12 @@ define(
 			},
 			template: function(data){
 				return _.template(template, {title: data.title});
+			},
+
+			onRender: function(){
+				if(MyConference.Auth && MyConference.Auth.getUser()){
+					MyConference.Auth.getUser().showHeader();
+				}
 			},
 
 			regions: {

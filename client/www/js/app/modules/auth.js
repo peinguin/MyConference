@@ -46,6 +46,10 @@ define(
 				new AuthRouter;
 			});
 
+			this.getUser = function(){
+				return User;
+			}
+
 		});
 
 		return MyConference.Auth;
