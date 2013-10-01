@@ -127,21 +127,27 @@ define(
 				      xfbml      : true  // parse XFBML
 				    });
 
-					FB.getLoginStatus(function(response) {console.log(response)
-						if(response.status == "not_authorized"){console.log(response.status)
-						    FB.login(function(response, a) {console.log(response, a)
+				    var sendAccessToken = function(response){
+				    	$.post(
+				    		cfg.baseUrl + 'auth.json/facebook',
+				    		{FacebookKEY: response.authResponse.accessToken},
+				    		function(data){
+				    			console.log(data);
+				    		}
+				    	);
+				    }
+
+					FB.getLoginStatus(function(response) {
+						if(response.status == "not_authorized"){
+						    FB.login(function(response, a) {
 							    if (response.authResponse) {
-							    	$.post(
-							    		cfg.baseUrl + 'auth.json/facebook',
-							    		{FacebookKEY: response.authResponse.accessToken},
-							    		function(data){
-							    			console.log(data);
-							    		}
-							    	);
+							    	sendAccessToken(response);
 							    } else {
 							        console.log(response, a)
 							    }
 							}, {scope:'email'});
+						}else{
+							sendAccessToken(response);
 						}
 					});
 
