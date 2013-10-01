@@ -250,6 +250,7 @@ var google = {
 		"nickname" : "authUserGoogle"
 	},
 	'action': function (req,res) {
+		
 	}
 };
 

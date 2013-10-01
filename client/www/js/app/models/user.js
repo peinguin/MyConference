@@ -174,8 +174,8 @@ define(
 							client_id:'774864135362.apps.googleusercontent.com',
 							scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me'
 						},
-						function(){
-
+						function(a, b, c ,d ,e){
+							console.log(a, b, c ,d ,e)
 						}
 					);
 				};
