@@ -192,7 +192,7 @@ define(
 			},
 			linkedin: function(){
 
-				window.onLoadCallback = function(){
+				window.onLinkedinLoad = function(){
 					IN.User.authorize(
 						function(){
 							$.post(
@@ -208,12 +208,12 @@ define(
 
 				(function(d){
 				     var js, id = 'linkedin-jssdk', ref = d.getElementsByTagName('script')[0];
-				     if (d.getElementById(id)) {return window.onLoadCallback();}
+				     if (d.getElementById(id)) {return window.onLinkedinLoad();}
 				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
 				     js.innerHTML = 
 				     	"api_key:5i9vcxh80gl3\n\
 				     	authorize: true\n\
-				     	onLoad: onLoadCallback";
+				     	onLoad: onLinkedinLoad";
 				     js.src = "http://platform.linkedin.com/in.js";
 				     ref.parentNode.insertBefore(js, ref);
 				}(document));
