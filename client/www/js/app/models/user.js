@@ -21,20 +21,17 @@ define(
 	) {
 		
 		var process_social_resporce = function(model, data, xhr){
-
-			console.log(data);
-
 			if(data.error){
 				(new AlertView).render(Helper.getErrorStringInHtml(xhr));
 			}else{
 				Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
 				model.set({
-					email: user.email,
+					email: data.email,
 					isGuest: false,
-					twitter: user.twitter,
-					google: user.google,
-					facebook: user.facebook,
-					linkedin: user.linkedin
+					twitter: data.twitter,
+					google: data.google,
+					facebook: data.facebook,
+					linkedin: data.linkedin
 				});
 				renew_headers();
 			}

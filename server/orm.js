@@ -6,7 +6,11 @@ exports.init = function (app) {
 	        db.define("users", {
 		        id       : Number,
 		        email    : String,
-		        password : String
+		        password : String,
+		        twitter  : Number,
+		        facebook : Number,
+		        google   : Number,
+		        linkedin : Number
 		    });
 		    db.define("conferences", {
 		        id          : Number,
