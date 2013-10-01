@@ -73,6 +73,8 @@ var facebook = {
 
 		FB.setPersistentData('access_token', req.body.FacebookKEY);
 
+		console.log(FB, req.body.FacebookKEY)
+
 		FB.api('/me', function(err, data) {
 		  console.log(data, err); // => { id: ... }
 		});
