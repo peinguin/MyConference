@@ -14,5 +14,10 @@ exports.facebook = {
 	appID: ''
 };
 
+exports.google = {
+	id: '',
+	secret: ''
+};
+
 exports.listen = 8002;
 exports.host = 'http://myconference.php.poltava.ua';

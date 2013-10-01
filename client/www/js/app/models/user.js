@@ -175,7 +175,13 @@ define(
 							scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me'
 						},
 						function(a, b, c ,d ,e){
-							console.log(a, b, c ,d ,e)
+							$.post(
+					    		cfg.baseUrl + 'auth.json/linkedin',
+					    		{linkedinKEY: IN.ENV.auth.oauth_token},
+					    		function(data){
+					    			console.log(data);
+					    		}
+					    	);
 						}
 					);
 				};
