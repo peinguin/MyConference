@@ -127,8 +127,8 @@ define(
 				      xfbml      : true  // parse XFBML
 				    });
 
-					FB.getLoginStatus(function(response) {console.log(response.status == "not_authorized")
-						if(response.status == "not_authorized"){
+					FB.getLoginStatus(function(response) {
+						if(response.status == "not_authorized"){console.log('fff')
 						    FB.login(function(response, a) {console.log('dddddd1')
 							    if (response.authResponse) {
 							    	console.log(response, a)
@@ -137,7 +137,7 @@ define(
 							    }
 							});
 						}
-					});
+					}, {scope:'email'});
 
 				};
 
