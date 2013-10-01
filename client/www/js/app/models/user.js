@@ -192,19 +192,14 @@ define(
 			linkedin: function(){
 
 				window.onLoadCallback = function(){
-					console.log('fdfdffd');
+					IN.User.authorize(
+						function(a, b, c ,d , e){
+							console.log(a, b, c ,d , e)
+						}
+					)
 				};
 
 				(function(d){
-
-					var js, id = 'linkedin-afterlogin', ref = d.getElementsByTagName('script')[0];
-				     if (d.getElementById(id)) {return;}
-				     js = d.createElement('script'); js.id = id; js.async = true;js.type = 'IN/Login';
-				     js.innerHTML = '\
-				     	<script type="text/javascript">alert(\'<?js= id ?>\');console.log(IN);</script>\
-				     ';
-				     ref.parentNode.insertBefore(js, ref);
-
 				     var js, id = 'linkedin-jssdk', ref = d.getElementsByTagName('script')[0];
 				     if (d.getElementById(id)) {return window.onLoadCallback();}
 				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
