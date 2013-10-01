@@ -38,6 +38,7 @@ exports.init = function(app) {
 		client.get(
 			req.headers[cfg.header.toLowerCase()],
 			function(error, result){
+				console.log('result', result)
 				if(result){
 					req.user = result;
 				}
