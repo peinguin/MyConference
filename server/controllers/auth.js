@@ -38,29 +38,35 @@ var connect_by = function(service, id, email, req, res){
 						});
 					});
 				}else{
-					var user = {
-						email: email
-					}
-					user[service] = id;
+					req.db.models.users.find({email: email}, function(err, user){
 
-					req.db.models.users.create(
-						[user], function (err, items) {
-						    if(err){
-						    	res.send(JSON.stringify(err));
-						    }else{
+						var user = {};
 
-						    	var finded_user = items[0];
-						    	console.log('finded_user', finded_user);
-
-						    	req.generate_code(function(code){
-									req.memcache.set(code, finded_user.id, function(){
-										res.header(cfg.header,  code);
-										res.send(JSON.stringify(finded_user));
-									});
-								});
-						    }
+						if(user.length == 0){
+							user.email = email;
 						}
-					);
+
+						user[service] = id;
+
+						req.db.models.users.create(
+							[user], function (err, items) {
+							    if(err){
+							    	res.send(JSON.stringify(err));
+							    }else{
+
+							    	var finded_user = items[0];
+							    	console.log('finded_user', finded_user);
+
+							    	req.generate_code(function(code){
+										req.memcache.set(code, finded_user.id, function(){
+											res.header(cfg.header,  code);
+											res.send(JSON.stringify(finded_user));
+										});
+									});
+							    }
+							}
+						);
+					});
 				}
 			}
 		}

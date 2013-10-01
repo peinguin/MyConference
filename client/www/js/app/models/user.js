@@ -24,7 +24,9 @@ define(
 			if(data.error){
 				(new AlertView).render(Helper.getErrorStringInHtml(xhr));
 			}else{
-				Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
+				if(xhr.getResponseHeader(cfg.authHeader)){
+					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
+				}
 				model.set({
 					email: data.email,
 					isGuest: false,
