@@ -119,7 +119,7 @@ define(
 				});
 			},
 			facebook: function(){
-				window.fbAsyncInit = function() {
+				window.fbAsyncInit = function() {console.log('ddd')
 				    FB.init({
 				      appId      : '1410429849185535', // App ID
 				      status     : true, // check login status
@@ -147,7 +147,7 @@ define(
 				     if (d.getElementById(id)) {return;}
 				     js = d.createElement('script'); js.id = id; js.async = true;
 				     js.src = "//connect.facebook.net/en_US/all.js";
-				     ref.parentNode.insertBefore(js, ref);console.log(js);
+				     ref.parentNode.insertBefore(js, ref);
 				}(document));
 			},
 			google: function(){
