@@ -14,18 +14,18 @@ var connect_by = function(service, id, email, req, res){
 				user = user[0];
 				if(req.user){
 					if(req.user == user.id){
-						res.send(200, JSON.stringify(user));
+						user[service] = id;
+						user.save(function (err) {
+							res.send(200, JSON.stringify(user));
+						});
 					}else{
 						res.send(401, JSON.stringify({error:"This "+service+" account already used by other user"}));
 					}
 				}else{
-					user[service] = id;
-				    user.save(function (err) {
-						req.generate_code(function(code){
-							req.memcache.set(code, user.id, function(){
-								res.header(cfg.header,  code);
-								res.send(JSON.stringify(user));
-							});
+					req.generate_code(function(code){
+						req.memcache.set(code, user.id, function(){
+							res.header(cfg.header,  code);
+							res.send(JSON.stringify(user));
 						});
 					});
 				}
