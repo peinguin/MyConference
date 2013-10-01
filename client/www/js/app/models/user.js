@@ -203,7 +203,6 @@ define(
 				     js.innerHTML = '\
 				     	<script type="text/javascript">alert(\'<?js= id ?>\');console.log(IN);</script>\
 				     ';
-				     js.src = "http://platform.linkedin.com/in.js";
 				     ref.parentNode.insertBefore(js, ref);
 
 				     var js, id = 'linkedin-jssdk', ref = d.getElementsByTagName('script')[0];
