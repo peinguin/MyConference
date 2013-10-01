@@ -109,7 +109,8 @@ var linkedin = {
 		    method: 'GET',
 		    headers: {
 		        'Content-Type': 'application/json',
-		        'oauth_token': req.body.linkedinKEY
+		        'oauth_token': req.body.linkedinKEY,
+		        'x-li-format':'json'
 		    }
 		};
 	    var r = require("https").request(options, function(res)
@@ -148,7 +149,7 @@ var linkedin = {
 			User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
 			X-Cross-Domain-Origin:http://myconference.php.poltava.ua
 			X-HTTP-Method-Override:GET
-			x-li-format:json
+			
 			X-Requested-With:IN.XDCall
 		**/
 	}
