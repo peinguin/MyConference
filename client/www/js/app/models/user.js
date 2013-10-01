@@ -192,7 +192,7 @@ define(
 			linkedin: function(){
 
 				window.onLoadCallback = function(){
-					
+					console.log('fdfdffd')
 				}
 
 				(function(d){
