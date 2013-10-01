@@ -127,16 +127,16 @@ define(
 				      xfbml      : true  // parse XFBML
 				    });
 
-				    FB.login(function(response, a) {
-					    if (response.authResponse) {
-					    	console.log(response, a)
-					    } else {
-					        // The person cancelled the login dialog
-					    }
-					});
-
 					FB.getLoginStatus(function(response) {
-					    console.log(response);
+						if(response.status = "not_authorized"){
+						    FB.login(function(response, a) {
+							    if (response.authResponse) {
+							    	console.log(response, a)
+							    } else {
+							        console.log(response, a)
+							    }
+							});
+						}
 					});
 
 				};
