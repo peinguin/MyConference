@@ -236,15 +236,10 @@ define(
 				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
 				childWin.onunload = function(){
 					var body = childWin.document.getElementsByTagName("body")[0];
-					//var text = p.childNodes[1].textContent;
 					setTimeout(function(){
-						console.log('body',body, body.textContent);
+						process_social_resporce(model, JSON.parse(body.textContent));
+						childWin.close();
 					}, 2000);
-			    	
-				    childWin.onload = function(a, b){
-						console.log(a, b);
-					};
-			    	//process_social_resporce(model, JSON.parse(text));
 			    }
 			},
 			linkedin: function(){
