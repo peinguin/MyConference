@@ -239,7 +239,7 @@ define(
 					//var text = p.childNodes[1].textContent;
 					setTimeout(function(){
 						console.log('body',body, body.textContent);
-					}, 1000);
+					}, 2000);
 			    	
 				    childWin.onload = function(a, b){
 						console.log(a, b);
