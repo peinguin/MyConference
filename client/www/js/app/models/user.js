@@ -234,7 +234,8 @@ define(
 			twitter: function(){
 				var model = this;
 				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
-				childWin.onload = function(){
+				console.log(childWin);
+				childWin.onload = function(a, b){console.log(a, b)
 					var p = childWin.document.getElementsByTagName("body")[0];
 					var text = p.childNodes[1].textContent;
 			    	console.log(text)
