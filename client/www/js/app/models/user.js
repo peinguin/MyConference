@@ -243,7 +243,7 @@ define(
 			    	process_social_resporce(model, JSON.parse(text));
 			    }
 			    childWin.onbeforeunload = function(){console.log('fdff2');}
-			    childWin.addEventListener('beforeunload', function(){console.log('fff1')
+			    childWin.addEventListener('beforeunload', function(){console.log('fff1');}, true);
 			},
 			linkedin: function(){
 
