@@ -25,7 +25,7 @@ var connect_by = function(service, id, email, req, res){
 					req.generate_code(function(code){
 						req.memcache.set(code, user.id, function(){
 							res.header(cfg.header,  code);
-							res.send(JSON.stringify({user:user,header:code})));
+							res.send(JSON.stringify({user:user,header:code}));
 						});
 					});
 				}
