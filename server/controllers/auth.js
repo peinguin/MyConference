@@ -59,7 +59,7 @@ var connect_by = function(service, id, email, req, res){
 							    	req.generate_code(function(code){
 										req.memcache.set(code, finded_user.id, function(){
 											res.header(cfg.header,  code);
-											res.send(JSON.stringify(finded_user));
+											res.send(JSON.stringify({user:finded_user,header:code}));
 										});
 									});
 							    }

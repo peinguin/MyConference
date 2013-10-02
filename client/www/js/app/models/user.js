@@ -24,16 +24,18 @@ define(
 			if(data.error){
 				(new AlertView).render(Helper.getErrorStringInHtml(xhr));
 			}else{
-				if(xhr.getResponseHeader(cfg.authHeader)){
+				if(xhr && xhr.getResponseHeader(cfg.authHeader)){
 					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
+				}else if(data.header){
+					Storage.set('API_KEY', data.header);
 				}
 				model.set({
-					email: data.email,
+					email: data.user.email,
 					isGuest: false,
-					twitter: data.twitter,
-					google: data.google,
-					facebook: data.facebook,
-					linkedin: data.linkedin
+					twitter: data.user.twitter,
+					google: data.user.google,
+					facebook: data.user.facebook,
+					linkedin: data.user.linkedin
 				});
 				renew_headers();
 			}
@@ -231,7 +233,13 @@ define(
 			},
 			twitter: function(){
 				var model = this;
-				window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=200,width=400");
+				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
+				childWin.onload = function(){
+					var p = childWin.document.getElementsByTagName("body")[0];
+					var text = p.childNodes[1].textContent;
+			    	console.log(text)
+			    	process_social_resporce(model, JSON.parse(text));
+			    }
 			},
 			linkedin: function(){
 
