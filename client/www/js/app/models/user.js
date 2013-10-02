@@ -234,11 +234,14 @@ define(
 			twitter: function(){
 				var model = this;
 				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
-				childWin.onunload = function(a){console.log(a)
+				childWin.onunload = function(){
 					var body = childWin.document.getElementsByTagName("body")[0];
 					//var text = p.childNodes[1].textContent;
-			    	console.log('body',body);
-				    	childWin.onload = function(a, b){
+					setTimeout(function(){
+						console.log('body',body, body.textContent);
+					}, 1000);
+			    	
+				    childWin.onload = function(a, b){
 						console.log(a, b);
 					};
 			    	//process_social_resporce(model, JSON.parse(text));
