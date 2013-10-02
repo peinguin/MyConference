@@ -16,7 +16,7 @@ var connect_by = function(service, id, email, req, res){
 					if(req.user == user.id){
 						user[service] = id;
 						user.save(function (err) {
-							res.send(200, JSON.stringify(user));
+							res.send(200, JSON.stringify({user:user}));
 						});
 					}else{
 						res.send(401, JSON.stringify({error:"This "+service+" account already used by other user"}));
@@ -25,7 +25,7 @@ var connect_by = function(service, id, email, req, res){
 					req.generate_code(function(code){
 						req.memcache.set(code, user.id, function(){
 							res.header(cfg.header,  code);
-							res.send(JSON.stringify(user));
+							res.send(JSON.stringify({user:user,header:code})));
 						});
 					});
 				}
@@ -34,7 +34,7 @@ var connect_by = function(service, id, email, req, res){
 					req.db.models.users.find(req.user, function(err, user){
 						user[service] = id;
 					    user.save(function (err) {
-							res.send(JSON.stringify(user));
+							res.send(JSON.stringify({user:user}));
 						});
 					});
 				}else{
