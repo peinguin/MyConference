@@ -235,11 +235,17 @@ define(
 				var model = this;
 				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
 				childWin.onunload = function(){
-					var body = childWin.document.getElementsByTagName("body")[0];
-					setTimeout(function(){
-						process_social_resporce(model, JSON.parse(body.textContent));
-						childWin.close();
-					}, 3000);
+
+					var check = function(){
+						var body = childWin.document.getElementsByTagName("body")[0];
+						if(body.textContent.length > 0){
+							process_social_resporce(model, JSON.parse(body.textContent));
+							childWin.close();
+						}else{
+							setTimeout(check, 100);
+						}
+					}
+					setTimeout(check, 100);
 			    }
 			},
 			linkedin: function(){
