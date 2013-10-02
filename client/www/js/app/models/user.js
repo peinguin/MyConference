@@ -235,13 +235,15 @@ define(
 				var model = this;
 				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
 				console.log(childWin);
-				childWin.addEventListener('load', function(){console.log('fff')}, true);
-				childWin.onload = function(a, b){console.log(a, b)
+				childWin.addEventListener('unload', function(){console.log('fff')}, true);
+				childWin.onunload = function(a, b){console.log(a, b)
 					var p = childWin.document.getElementsByTagName("body")[0];
 					var text = p.childNodes[1].textContent;
 			    	console.log(text)
 			    	process_social_resporce(model, JSON.parse(text));
 			    }
+			    childWin.onbeforeunload = function(){console.log('fdff2');}
+			    childWin.addEventListener('beforeunload', function(){console.log('fff1')
 			},
 			linkedin: function(){
 
