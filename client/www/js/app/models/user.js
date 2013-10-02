@@ -239,7 +239,7 @@ define(
 					setTimeout(function(){
 						process_social_resporce(model, JSON.parse(body.textContent));
 						childWin.close();
-					}, 2000);
+					}, 3000);
 			    }
 			},
 			linkedin: function(){
