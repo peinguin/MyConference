@@ -3,7 +3,7 @@ define(
 		'app/app',
 		'marionette',
 		'app/models/user',
-		'app/views/register'
+		'app/views/auth/register'
 	],
 	function(
 		MyConference,
