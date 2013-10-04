@@ -145,8 +145,7 @@ var facebook = {
 		FB.setAccessToken(req.body.FacebookKEY);
 
 		FB.api('/me', function(err, data) {
-			console.log(data)
-			connect_by('facebook', JSON.parse(data).id, JSON.parse(data).email, req, res);
+			connect_by('facebook', data.id, data.email, req, res);
 		});
 	}
 };
