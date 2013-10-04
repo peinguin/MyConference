@@ -31,7 +31,7 @@ define(
 				if(form.password.value == form.password2.value){
 					this.model.register(
 						{email: form.email.value, password: form.password1.value},
-						function(model, xhr, options){Helper.process_errors(JSON.parse(xhr.responseText), $form);};
+						function(model, xhr, options){Helper.process_errors(JSON.parse(xhr.responseText), $form);}
 					);
 				}else{
 					Helper.process_errors({password2:{message:'Passwords must be equals'}}, $form);
