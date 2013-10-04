@@ -8,7 +8,7 @@ var express = require("express"),
 var app = express();
 
 app.use(express.bodyParser());
-
+res.send(200, 'sqlite://'+__dirname+'/db.sqlite');res.end();
 auth.init(app);
 orm.init(app);
 swagger(app);
