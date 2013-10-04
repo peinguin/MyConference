@@ -7,7 +7,7 @@ var express = require("express"),
 
 var app = express();
 app.use(function(req, res, next){
-res.send(200, 'sqlite://'+__dirname+'/db.sqlite');res.end();
+//res.send(200, 'sqlite://'+__dirname+'/db.sqlite');res.end();
 });
 app.use(express.bodyParser());
 
