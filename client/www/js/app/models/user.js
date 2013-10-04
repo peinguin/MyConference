@@ -167,7 +167,7 @@ define(
 				    }
 
 					FB.getLoginStatus(function(response) {
-						if(response.status == "not_authorized" || response.status == "uknown"){
+						if(response.status == "not_authorized" || response.status == "unknown"){
 						    FB.login(function(response, a) {
 							    if (response.authResponse) {
 							    	sendAccessToken(response);
