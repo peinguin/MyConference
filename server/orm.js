@@ -1,7 +1,7 @@
 var orm = require('orm');
 
 exports.init = function (app) {
-	app.use(orm.express('sqlite:srv/node/MyConference/server/db.sqlite', {
+	app.use(orm.express('sqlite:/srv/node/MyConference/server/db.sqlite:', {
 	    define: function (db, models) {
 	        db.define("users", {
 		        id       : Number,
