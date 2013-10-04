@@ -2,12 +2,14 @@ define(
 	[
 		'app/app',
 		'marionette',
-		'app/models/user'
+		'app/models/user',
+		'app/views/register'
 	],
 	function(
 		MyConference,
 		Marionette,
-		UserModel
+		UserModel,
+		RegisterView
 	){
 
 		MyConference.module("Auth", function(AuthModule){
