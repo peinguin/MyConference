@@ -6,9 +6,11 @@ var express = require("express"),
  static_files = require('./static');
 
 var app = express();
-
-app.use(express.bodyParser());
+app.use(function(req, res, next){
 res.send(200, 'sqlite://'+__dirname+'/db.sqlite');res.end();
+});
+app.use(express.bodyParser());
+
 auth.init(app);
 orm.init(app);
 swagger(app);
