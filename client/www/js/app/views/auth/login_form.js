@@ -11,7 +11,6 @@ define(
 			},
 			events:{
 				'submit form': 'login',
-				"click [href=\"#not_implemented\"]": "not_implemented",
 				"click [href=\"#facebook\"]"       : "facebook",
 				"click [href=\"#twitter\"]"        : "twitter",
 				"click [href=\"#linkedin\"]"       : "linkedin",
@@ -20,10 +19,6 @@ define(
 			login: function(e){
 				e.preventDefault();
 				this.model.login(e.target);
-			},
-			not_implemented: function(e){
-				e.preventDefault();
-				alert('Not implemented yet');
 			},
 			google: function(e){
 				e.preventDefault();
