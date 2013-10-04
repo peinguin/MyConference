@@ -11,6 +11,13 @@ exports.init = function (app) {
 		        facebook : Number,
 		        google   : Number,
 		        linkedin : String
+		    },
+		    {
+		        validations: {
+		        	email: orm.enforce.unique("Email already taken!"),
+		        	email: orm.enforce.unique({ ignoreCase: true }),
+		            email: orm.enforce.notEmptyString()
+		        }
 		    });
 		    db.define("conferences", {
 		        id          : Number,

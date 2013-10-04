@@ -7,7 +7,8 @@ define(
 		'app/views/auth/login_form',
 		'app/views/auth/user_info',
 		'app/views/alert',
-		'app/helper'
+		'app/helper',
+		'app/models/new_user'
 	],
 	function (
 		Backbone,
@@ -17,7 +18,8 @@ define(
 		LoginForm,
 		UserInfo,
 		AlertView,
-		Helper
+		Helper,
+		NewUserModel
 	) {
 		
 		var process_social_resporce = function(model, data, xhr){
@@ -281,6 +283,18 @@ define(
 				     js.src = "http://platform.linkedin.com/in.js";
 				     ref.parentNode.insertBefore(js, ref);
 				}(document));
+			},
+			register: function(data, error){
+
+				var model = this;
+
+				var newUserMode = new NewUserModel(data);
+				newUserMode.save({
+					success: function(m, xhr){
+						process_social_resporce(model, newUserMode.toJSON(), xhr);
+					},
+					error: error
+				});
 			}
 		});
 
