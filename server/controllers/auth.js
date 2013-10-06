@@ -222,9 +222,9 @@ var twitter = {
 		var config = {
 		    "consumerKey": cfg.twitter.consumerKey,
 		    "consumerSecret": cfg.twitter.consumerSecret,
-		    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json').replace('{apikey}', req.params.apikey)
+		    "callBackUrl": cfg.host + twitterCallbackAuthorized.spec.path.replace('{format}', 'json').replace('{apikey}', req.params.apikey)
 		}
-
+		
 		var Twitter = require('twitter-js-client').Twitter;
 		var twitter = new Twitter(config);
 		twitter.getOAuthRequestToken(function(oauth){
