@@ -148,7 +148,8 @@ define(
 				    		{FacebookKEY: response.authResponse.accessToken},
 				    		function(data, message, xhr){
 				    			process_social_resporce(model, data, xhr);
-				    		}
+				    		},
+					    	dataType: "text"
 				    	);
 				    }
 
@@ -203,7 +204,8 @@ define(
 					    		{googleKEY: a.access_token},
 					    		function(data, message, xhr){
 					    			process_social_resporce(model, data, xhr);
-					    		}
+					    		},
+					    		dataType: "text"
 					    	);
 						}
 					);
@@ -250,7 +252,8 @@ define(
 					    		{linkedinKEY: IN.ENV.auth.oauth_token},
 					    		function(data, message, xhr){
 					    			process_social_resporce(model, data, xhr);
-					    		}
+					    		},
+					    		dataType: "text"
 					    	);
 						}
 					)
