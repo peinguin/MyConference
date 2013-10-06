@@ -30,6 +30,7 @@ var connect_by = function(service, id, email, req, res){
 					});
 				}
 			}else{
+				console.log(req.user);
 				if(req.user){
 					req.db.models.users.get(req.user, function(err, user){
 						if(err){
@@ -343,7 +344,8 @@ var google = {
 	        });
 
 	        resp.on('end', function() {
-	            connect_by('google', JSON.parse(output).id, JSON.parse(output).email, req, res);
+	        	var data = JSON.parse(output);
+	            connect_by('google', data.id, data.email, req, res);
 	        });
 	    });
 
