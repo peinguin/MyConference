@@ -291,12 +291,12 @@ var twitterCallbackAction =	function (req,res) {
 			);
 		});
 	}
-
+console.log(req.params.apikey)
 	if(req.params.apikey){
 		req.memcache.get(req.params.apikey, function(error, result){
 			if(result){
 				req.user = result;
-			}
+			}console.log(req.user)
 			process();
 		});
 	}else{
