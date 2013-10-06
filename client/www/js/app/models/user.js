@@ -57,7 +57,7 @@ define(
 				var model = this;
 
 				if(model.isNew()){
-					if(MyConference.mainView.currentView){
+					if(MyConference.mainView.currentView.header){
 						var loginForm = new LoginForm({model: model});
 						MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
 					}
