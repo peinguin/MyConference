@@ -77,7 +77,7 @@ define({
     },
 	getErrorArray: function(jqXHR){
     	var data = JSON.parse(jqXHR.responseText);
-    	return getErrorArrayFromData(data);
+    	return this.getErrorArrayFromData(data);
     },
 
     getErrorStringInHtml: function(jqXHR){
