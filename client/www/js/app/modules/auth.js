@@ -47,15 +47,19 @@ define(
 				},
 				facebook: function(){
 					User.facebook();
+					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 				},
 				twitter: function(){
 					User.twitter();
+					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 				},
 				linkedin: function(){
 					User.linkedin();
+					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 				},
 				google: function(){
 					User.google();
+					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 				},
 			});
 
