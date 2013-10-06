@@ -80,7 +80,16 @@ define(
 					model.showHeader();
 				})
 
-				this.fetch();
+				this.fetch({
+					success: function(){
+						if(model.isNew()){
+							if(MyConference.mainView.currentView){
+								var loginForm = new LoginForm({model: model});
+								MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
+							}
+						}
+					}
+				});
 			},
 			logout: function(){
 				var model = this;
