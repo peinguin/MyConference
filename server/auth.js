@@ -41,6 +41,7 @@ exports.init = function(app) {
 				if(result){
 					req.user = result;
 				}
+				console.log(req.user);
 				next();
 			}
 		);
