@@ -304,7 +304,7 @@ var twitterCallback = {
 		}
 
 		if(req.params.apikey){
-			memcache.get(req.params.apikey, function(error, result){
+			req.memcache.get(req.params.apikey, function(error, result){
 				if(result){
 					req.user = result;
 				}
