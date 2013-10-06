@@ -297,8 +297,8 @@ var twitterCallbackAction =	function (req,res) {
 			if(result){
 				req.user = result;
 			}
+			process();
 		});
-		process();
 	}else{
 		process();
 	}
