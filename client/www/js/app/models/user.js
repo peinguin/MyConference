@@ -28,7 +28,7 @@ define(
 			}else{
 				if(xhr && xhr.getResponseHeader(cfg.authHeader)){
 					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
-				}else if(data.header){
+				}else if(data.length > 0){
 					Storage.set('API_KEY', data);
 				}
 				renew_headers();
