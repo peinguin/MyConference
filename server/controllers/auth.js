@@ -199,7 +199,6 @@ var linkedin = {
 
 	        resp.on('end', function() {
 	        	var data = JSON.parse(output);
-	        	console.log(data)
 	            connect_by('linkedin', data.values[0].id, data.values[0].emailAddress, req, res);
 	        });
 	    });
@@ -372,7 +371,7 @@ var google = {
 	        });
 
 	        resp.on('end', function() {
-	        	var data = JSON.parse(output);console.log(data)
+	        	var data = JSON.parse(output);
 	            connect_by('google', data.id, data.email, req, res);
 	        });
 	    });
