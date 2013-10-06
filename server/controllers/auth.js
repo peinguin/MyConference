@@ -30,8 +30,8 @@ var connect_by = function(service, id, email, req, res){
 					});
 				}
 			}else{
-				if(req.user){console.log(req.user);
-					req.db.models.users.find(req.user, function(err, user){
+				if(req.user){
+					req.db.models.users.get(req.user, function(err, user){
 						if(err){
 							res.send(500, JSON.stringify(err));
 						}else{
