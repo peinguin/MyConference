@@ -210,7 +210,7 @@ var linkedin = {
 var twitter = {
 	'spec': {
 		"description" : "User twitter auth",
-		"path" : "/auth.{format}/twitter",
+		"path" : "/auth.{format}/twitter/{apikey}",
 		"notes" : "User twitter auth",
 		"summary" : "User twitter auth",
 		"method": "GET",
@@ -222,7 +222,7 @@ var twitter = {
 		var config = {
 		    "consumerKey": cfg.twitter.consumerKey,
 		    "consumerSecret": cfg.twitter.consumerSecret,
-		    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+		    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')+'/'+req.params.apikey
 		}
 
 		var Twitter = require('twitter-js-client').Twitter;
@@ -241,7 +241,7 @@ var twitter = {
 var twitterCallback = {
 	'spec': {
 		"description" : "User twitter auth callback",
-		"path" : "/auth.{format}/twitter_callback",
+		"path" : "/auth.{format}/twitter_callback/{apikey}",
 		"notes" : "User twitter auth callback",
 		"summary" : "User twitter auth callback",
 		"method": "GET",
@@ -250,57 +250,69 @@ var twitterCallback = {
 		"nickname" : "authUserTwitterCallback"
 	},
 	'action': function (req,res) {
+		var process = function(){
+			var url = require('url');
+			var url_parts = url.parse(req.url, true);
 
-		var url = require('url');
-		var url_parts = url.parse(req.url, true);
+			req.memcache.get(url_parts.query.oauth_token, function(err, token_secret){
+				var config = {
+				    "consumerKey": cfg.twitter.consumerKey,
+				    "consumerSecret": cfg.twitter.consumerSecret,
+				    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+				};
 
-		req.memcache.get(url_parts.query.oauth_token, function(err, token_secret){
-			var config = {
-			    "consumerKey": cfg.twitter.consumerKey,
-			    "consumerSecret": cfg.twitter.consumerSecret,
-			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-			};
+				var Twitter = require('twitter-js-client').Twitter;
 
-			var Twitter = require('twitter-js-client').Twitter;
+				var twitter = new Twitter(config);
 
-			var twitter = new Twitter(config);
+				twitter.getOAuthAccessToken(
+					{
+						token: url_parts.query.oauth_token,
+						token_secret: token_secret,
+						verifier: url_parts.query.oauth_verifier
+					},
+					function(oauth){
 
-			twitter.getOAuthAccessToken(
-				{
-					token: url_parts.query.oauth_token,
-					token_secret: token_secret,
-					verifier: url_parts.query.oauth_verifier
-				},
-				function(oauth){
+						if(oauth.access_token){
 
-					if(oauth.access_token){
+							var config = {
+							    "consumerKey": cfg.twitter.consumerKey,
+							    "consumerSecret": cfg.twitter.consumerSecret,
+							    "accessToken": oauth.access_token,
+							    "accessTokenSecret": oauth.access_token_secret,
+							    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+							};
 
-						var config = {
-						    "consumerKey": cfg.twitter.consumerKey,
-						    "consumerSecret": cfg.twitter.consumerSecret,
-						    "accessToken": oauth.access_token,
-						    "accessTokenSecret": oauth.access_token_secret,
-						    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-						};
+							var twitter = new Twitter(config);
 
-						var twitter = new Twitter(config);
-
-						twitter.doRequest(
-							twitter.baseUrl + '/account/verify_credentials.json',
-							function(err, response, body){
-								console.log(err, body);
-							},
-							function(body){
-								connect_by('twitter', JSON.parse(body).id, undefined, req, res);
-							}
-						);
-					}else{
-						console.log(oauth);
-						res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(oauth)}));
+							twitter.doRequest(
+								twitter.baseUrl + '/account/verify_credentials.json',
+								function(err, response, body){
+									console.log(err, body);
+								},
+								function(body){
+									connect_by('twitter', JSON.parse(body).id, undefined, req, res);
+								}
+							);
+						}else{
+							console.log(oauth);
+							res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(oauth)}));
+						}
 					}
+				);
+			});
+		}
+
+		if(req.params.apikey){
+			memcache.get(req.params.apikey, function(error, result){
+				if(result){
+					req.user = result;
 				}
-			);
-		});
+			});
+			process();
+		}else{
+			process();
+		}
 	}
 };
 
