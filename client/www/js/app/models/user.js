@@ -149,7 +149,7 @@ define(
 				    		function(data, message, xhr){
 				    			process_social_resporce(model, data, xhr);
 				    		},
-					    	dataType: "text"
+					    	"text"
 				    	);
 				    }
 
@@ -205,7 +205,7 @@ define(
 					    		function(data, message, xhr){
 					    			process_social_resporce(model, data, xhr);
 					    		},
-					    		dataType: "text"
+					    		"text"
 					    	);
 						}
 					);
@@ -253,7 +253,7 @@ define(
 					    		function(data, message, xhr){
 					    			process_social_resporce(model, data, xhr);
 					    		},
-					    		dataType: "text"
+					    		"text"
 					    	);
 						}
 					)
