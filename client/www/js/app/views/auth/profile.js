@@ -7,11 +7,11 @@ define(
 		'app/helper'
 	],
 	function (
+		MyConference,
 		Marionette,
 		Template,
 		cfg,
-		Helper,
-		MyConference
+		Helper
 	) {
 		var LoginView = Marionette.ItemView.extend({
 			template: function(model){
@@ -27,7 +27,7 @@ define(
 				MyConference.once(
 					'change:facebook change:twitter change:linkedin change:google',
 					function(){
-						view.render();
+						view.render()
 					}
 				);
 			},
