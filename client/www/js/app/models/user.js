@@ -56,17 +56,17 @@ define(
 
 				var model = this;
 
-				if(model.isNew()){
-					if(
-						MyConference.mainView.currentView &&
-						MyConference.mainView.currentView.header.currentView
-					){
+				if(
+					MyConference.mainView.currentView &&
+					MyConference.mainView.currentView.header.currentView
+				){
+					if(model.isNew()){
 						var loginForm = new LoginForm({model: model});
 						MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
+					}else{
+						var userInfo = new UserInfo({model: model});
+						MyConference.mainView.currentView.header.currentView.auth.show(userInfo);
 					}
-				}else{
-					var userInfo = new UserInfo({model: model});
-					MyConference.mainView.currentView.header.currentView.auth.show(userInfo);
 				}
 			},
 			initialize: function(){
