@@ -22,7 +22,7 @@ define(
 			},
 			onRender: function(){
 				var view = this;
-				setTimeout(function(){view.MyConference.Auth.getUser().trigger('renewHeader');}, 2000);
+				setTimeout(function(){view.MyConference.Auth.getUser().trigger('renewHeader');}, 500);
 			},
 			regions: {
 		    	search: "#search",
