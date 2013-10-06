@@ -1,5 +1,6 @@
 define(
 	[
+		'app/app',
 		'marionette',
 		'text!app/templates/auth/profile.htt',
 		'app/config',
@@ -9,7 +10,8 @@ define(
 		Marionette,
 		Template,
 		cfg,
-		Helper
+		Helper,
+		MyConference
 	) {
 		var LoginView = Marionette.ItemView.extend({
 			template: function(model){
@@ -18,6 +20,16 @@ define(
 			},
 			events:{
 				'submit form': 'updateInfo',
+			},
+			onRender: function(){
+				var view = this;
+
+				MyConference.once(
+					'change:facebook change:twitter change:linkedin change:google',
+					function(){
+						view.render();
+					}
+				);
 			},
 			updateInfo: function(e){
 				e.preventDefault();
