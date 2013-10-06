@@ -32,10 +32,14 @@ var connect_by = function(service, id, email, req, res){
 			}else{
 				if(req.user){
 					req.db.models.users.find(req.user, function(err, user){
-						user[service] = id;
-					    user.save(function (err) {
-							res.send();
-						});
+						if(err){
+							res.send(500, JSON.stringify(err));
+						}else{
+							user[service] = id;
+						    user.save(function (err) {
+								res.send();
+							});
+						}
 					});
 				}else{
 					req.db.models.users.find({email: email}, function(err, finded_user){
