@@ -89,6 +89,8 @@ define(
 
 				this.fetch({
 					error: function(){
+						Storage.set('API_KEY', undefined);
+						renew_headers();
 						model.trigger('renewHeader');
 					}
 				});
