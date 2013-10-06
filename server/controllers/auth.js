@@ -199,6 +199,7 @@ var linkedin = {
 
 	        resp.on('end', function() {
 	        	var data = JSON.parse(output);
+	        	console.log(data)
 	            connect_by('linkedin', data.values[0].id, data.values[0].emailAddress, req, res);
 	        });
 	    });
@@ -304,7 +305,6 @@ var twitterCallbackAction =	function (req,res) {
 	}
 }
 
-
 var twitterCallbackAuthorized = {
 	'spec': {
 		"description" : "User twitter auth callback",
@@ -372,7 +372,7 @@ var google = {
 	        });
 
 	        resp.on('end', function() {
-	        	var data = JSON.parse(output);
+	        	var data = JSON.parse(output);console.log(data)
 	            connect_by('google', data.id, data.email, req, res);
 	        });
 	    });
