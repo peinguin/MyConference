@@ -147,7 +147,6 @@ define(
 				    		cfg.baseUrl + 'auth.json/facebook',
 				    		{FacebookKEY: response.authResponse.accessToken},
 				    		function(data, message, xhr){
-				    			model.set('facebook', 1);
 				    			process_social_resporce(model, data, xhr);
 				    		}
 				    	);
@@ -203,7 +202,6 @@ define(
 					    		cfg.baseUrl + 'auth.json/google',
 					    		{googleKEY: a.access_token},
 					    		function(data, message, xhr){
-					    			model.set('google', 1);
 					    			process_social_resporce(model, data, xhr);
 					    		}
 					    	);
@@ -228,7 +226,6 @@ define(
 						if(childWin.document){
 							var body = childWin.document.getElementsByTagName("body")[0];
 							if(body.textContent.length > 0){
-								model.set('twitter', 1);
 								process_social_resporce(model, JSON.parse(body.textContent));
 								childWin.close();
 							}else{
@@ -241,7 +238,6 @@ define(
 					setTimeout(check, 100);
 			    }
 			},
-			linkedin: function(){
 
 				var model = this;
 
@@ -252,7 +248,6 @@ define(
 					    		cfg.baseUrl + 'auth.json/linkedin',
 					    		{linkedinKEY: IN.ENV.auth.oauth_token},
 					    		function(data, message, xhr){
-					    			model.set('linkedin', 1);
 					    			process_social_resporce(model, data, xhr);
 					    		}
 					    	);
