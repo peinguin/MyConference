@@ -28,7 +28,7 @@ define(
 			onRender: function(){
 				var view = this;
 
-				MyConference.once(
+				MyConference.getUser().once(
 					'change:facebook change:twitter change:linkedin change:google',
 					function(){
 						view.render()
