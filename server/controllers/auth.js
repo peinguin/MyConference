@@ -224,7 +224,7 @@ var twitter = {
 		    "consumerSecret": cfg.twitter.consumerSecret,
 		    "callBackUrl": cfg.host + twitterCallbackAuthorized.spec.path.replace('{format}', 'json').replace('{apikey}', req.params.apikey)
 		}
-		
+
 		var Twitter = require('twitter-js-client').Twitter;
 		var twitter = new Twitter(config);
 		twitter.getOAuthRequestToken(function(oauth){
@@ -291,12 +291,12 @@ var twitterCallbackAction =	function (req,res) {
 			);
 		});
 	}
-console.log(req.params.apikey)
+
 	if(req.params.apikey){
 		req.memcache.get(req.params.apikey, function(error, result){
 			if(result){
 				req.user = result;
-			}console.log(req.user)
+			}
 			process();
 		});
 	}else{

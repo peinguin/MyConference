@@ -227,7 +227,7 @@ define(
 					var check = function(){
 						if(childWin.document){
 							var body = childWin.document.getElementsByTagName("body")[0];
-							if(body.textContent.length > 0){
+							if(!model.isNew() || body.textContent.length > 0){
 								process_social_resporce(model, JSON.parse(body.textContent));
 								childWin.close();
 							}else{
