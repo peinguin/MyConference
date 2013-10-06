@@ -10,10 +10,6 @@ define(
 			},
 			events:{
 				"click [href=\"#not_implemented\"]": "not_implemented"
-			},
-			not_implemented: function(e){
-				e.preventDefault();
-				alert('Not implemented yet');
 			}
 		});
 

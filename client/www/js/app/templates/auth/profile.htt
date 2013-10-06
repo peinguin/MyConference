@@ -1,0 +1,16 @@
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <label class="sr-only" for="email">Email address</label>
+    <input type="email" class="form-control" id="email" name="email" value="<%= email %>" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword2">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Change</button>
+</form>
+
+<a class="btn btn-primary <% if(facebook){ %>disabled glyphicon glyphicon-ok<% } %>" href="#facebook">Facebook</a>
+<a class="btn btn-info    <% if(twitter){ %>disabled glyphicon glyphicon-ok<% } %>"  href="#twitter">Twitter</a>
+<a class="btn btn-default <% if(linkedin){ %>disabled glyphicon glyphicon-ok<% } %>" href="#linkedin">Linkedin</a>
+<a class="btn btn-danger  <% if(google){ %>disabled glyphicon glyphicon-ok<% } %>"   href="#google">Google</a>

@@ -5,14 +5,20 @@ define({
         if(Object.prototype.toString.call( data ) === '[object Object]' ){
             if(data.message)
                 arr.push(data.message)
-            else{
-
-                var $el = $form.find(i);
+            else if(data.property){
+                var $el = $form.find('#'+data.property).parent();
                 if($el.length > 0){
                     $el.addClass('has-error');
                 }
-
+                $el.find('.help-block').text(data.msg).show();
+            }else{
                 for(i in data){
+
+                    var $el = $form.find('#'+i).parent();
+                    if($el.length > 0){
+                        $el.addClass('has-error');
+                    }
+
                     if(Object.prototype.toString.call( data[i] ) === '[object Array]' ){
                         for(j in data[i]){
                             if(data[i][j].message)

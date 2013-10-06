@@ -29,17 +29,10 @@ define(
 				if(xhr && xhr.getResponseHeader(cfg.authHeader)){
 					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
 				}else if(data.header){
-					Storage.set('API_KEY', data.header);
+					Storage.set('API_KEY', data);
 				}
-				model.set({
-					email: data.user.email,
-					isGuest: false,
-					twitter: data.user.twitter,
-					google: data.user.google,
-					facebook: data.user.facebook,
-					linkedin: data.user.linkedin
-				});
 				renew_headers();
+				model.fetch();
 			}
 		}
 
@@ -51,48 +44,27 @@ define(
 			}
 		}
 
-		var EmailModel = new (Backbone.Model.extend({
-			url: cfg.baseUrl + 'user.json/email'
-		}));
-
-		var userModel = Backbone.Model.extend({
+		var userModel = NewUserModel.extend({
 			defaults: {
-				isGuest: undefined,
+				id: undefined,
 				email: undefined,
 				twitter: undefined,
 				google: undefined,
 				facebook: undefined,
 				linkedin: undefined
 			},
-			getEmail: function(){
-				var model = this;
-				EmailModel.fetch({
-					error: function(){
-						model.set({
-							isGuest: true,
-							email: undefined
-						})
-					},
-					success: function(){
-						model.set({
-							email: EmailModel.get('email'),
-							isGuest: false
-						});
-					}
-				});
-			},
 			showHeader: function(){
 
 				var model = this;
 
-				if(model.get('isGuest') === false){
-					var userInfo = new UserInfo({model: model});
-					MyConference.mainView.currentView.header.currentView.auth.show(userInfo);
-				}else{
+				if(model.isNew()){
 					if(MyConference.mainView.currentView){
 						var loginForm = new LoginForm({model: model});
 						MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
 					}
+				}else{
+					var userInfo = new UserInfo({model: model});
+					MyConference.mainView.currentView.header.currentView.auth.show(userInfo);
 				}
 			},
 			initialize: function(){
@@ -101,11 +73,15 @@ define(
 
 				renew_headers();
 
-				this.on('change:isGuest', function(){
+				this.on('change:id', function(){
+					if(window.location.hash.match(/register/)){
+						(new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}
+
 					model.showHeader();
 				})
 
-				this.getEmail();
+				this.fetch();
 			},
 			logout: function(){
 				var model = this;
@@ -119,7 +95,7 @@ define(
 					success: function(){
 						Storage.set('API_KEY', undefined);
 						model.set({
-							isGuest: true,
+							id: undefined,
 							email: undefined
 						});
 						renew_headers();
@@ -137,14 +113,12 @@ define(
 						email: form.email.value,
 						password: form.password.value
 					},
+					dataType: "text",
 					method:'POST',
 					success :function(user, message, xhr){
 						Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
-						model.set({
-							email: user.email,
-							isGuest: false
-						});
 						renew_headers();
+						model.fetch();
 					},
 					error: function(xhr){
 						if(xhr.status == 403){
@@ -284,17 +258,10 @@ define(
 				     ref.parentNode.insertBefore(js, ref);
 				}(document));
 			},
-			register: function(data, error){
-
-				var model = this;
-
-				var newUserMode = new NewUserModel(data);
-				newUserMode.save({
-					success: function(m, xhr){
-						process_social_resporce(model, newUserMode.toJSON(), xhr);
-					},
-					error: error
-				});
+			setHeader: function(header){
+				Storage.set('API_KEY', header);
+				renew_headers();
+				this.fetch();
 			}
 		});
 

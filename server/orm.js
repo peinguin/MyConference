@@ -1,7 +1,7 @@
 var orm = require('orm');
 
 exports.init = function (app) {
-	app.use(orm.express('sqlite:///srv/node/MyConference/server/db.sqlite', {
+	app.use(orm.express('sqlite://'+__dirname+'/db.sqlite', {
 	    define: function (db, models) {
 	        db.define("users", {
 		        id       : Number,
@@ -14,9 +14,12 @@ exports.init = function (app) {
 		    },
 		    {
 		        validations: {
-		        	email: orm.enforce.unique("Email already taken!"),
-		        	email: orm.enforce.unique({ ignoreCase: true }),
-		            email: orm.enforce.notEmptyString()
+		        	email: [
+		        		orm.enforce.unique("Email already taken!"),
+		        		orm.enforce.unique({ ignoreCase: true }),
+		            	orm.enforce.notEmptyString()
+		            ],
+		            password: orm.enforce.notEmptyString()
 		        }
 		    });
 		    db.define("conferences", {

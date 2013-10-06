@@ -3,49 +3,76 @@ define(
 		'app/app',
 		'marionette',
 		'app/models/user',
-		'app/views/auth/register'
+		'app/views/auth/register',
+		'app/views/auth/profile'
 	],
 	function(
 		MyConference,
 		Marionette,
 		UserModel,
-		RegisterView
+		RegisterView,
+		ProfileView
 	){
 
 		MyConference.module("Auth", function(AuthModule){
 
-			User = undefined;
+			User = new UserModel;
 
 			var AuthController = Marionette.Controller.extend({
 				register: function(){
 
-					if(User.get('isGuest') === false){
+					if(User.isNew()){
 						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 					}
 
 					var registerView = new RegisterView;
-					registerView.controller = this;
-					MyConference.mainView.show(registerView);
+					registerView.model = User;
+					MyConference.mainView.currentView.content.show(registerView);
 				},
 				logout: function(){
-					if(User.get('isGuest') === true){
+					if(User.isNew()){
 						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 					}else{
 						User.logout();
 					}
-				}
+				},
+				profile: function(){
+					if(User.isNew()){
+						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}else{
+						var profileView = new ProfileView;
+						profileView.model = User;
+						MyConference.mainView.currentView.content.show(profileView);
+					}
+				},
+				facebook: function(){
+					User.facebook();
+				},
+				twitter: function(){
+					User.twitter();
+				},
+				linkedin: function(){
+					User.linkedin();
+				},
+				google: function(){
+					User.google();
+				},
 			});
 
 			var AuthRouter = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
 					"register": "register",
-					"logout": "logout"
+					"logout":   "logout",
+					"profile":  "profile",
+					"facebook": "facebook",
+					"twitter":  "twitter",
+					"linkedin": "linkedin",
+					"google":   "google"
 				},
 				controller: new AuthController
 			});
 
 			AuthModule.addInitializer(function(){
-				User = new UserModel;
 				new AuthRouter;
 			});
 
