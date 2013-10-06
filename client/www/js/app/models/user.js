@@ -238,6 +238,7 @@ define(
 					setTimeout(check, 100);
 			    }
 			},
+			linkedin: function(){
 
 				var model = this;
 
