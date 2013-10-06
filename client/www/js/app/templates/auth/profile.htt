@@ -9,9 +9,8 @@
   </div>
   <button type="submit" class="btn btn-default">Change</button>
 </form>
-<div class="row">
+<p>&nbsp;</p>
 	<a class="btn btn-primary <% if(facebook){ %>disabled glyphicon glyphicon-ok<% } %>" href="#facebook">Facebook</a>
 	<a class="btn btn-info    <% if(twitter){ %>disabled glyphicon glyphicon-ok<% } %>"  href="#twitter">Twitter</a>
 	<a class="btn btn-default <% if(linkedin){ %>disabled glyphicon glyphicon-ok<% } %>" href="#linkedin">Linkedin</a>
 	<a class="btn btn-danger  <% if(google){ %>disabled glyphicon glyphicon-ok<% } %>"   href="#google">Google</a>
-</div>
