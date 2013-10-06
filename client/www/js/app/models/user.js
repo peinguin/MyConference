@@ -78,14 +78,15 @@ define(
 					}
 
 					model.showHeader();
+				});
+
+				this.on('renewHeader', function(){
+					model.showHeader();
 				})
 
 				this.fetch({
 					error: function(){
-						if(model.isNew()){
-							var loginForm = new LoginForm({model: model});
-							MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
-						}
+						model.trigger('renewHeader');
 					}
 				});
 			},

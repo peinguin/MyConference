@@ -16,7 +16,7 @@ define(
 
 		MyConference.module("Auth", function(AuthModule){
 
-			User = new UserModel;
+			var User = new UserModel;
 
 			var AuthController = Marionette.Controller.extend({
 				register: function(){

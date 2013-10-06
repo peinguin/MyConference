@@ -19,7 +19,9 @@ define(
 			template: function(data){
 				return _.template(template, {title: data.title});
 			},
-
+			onRender: function(){
+				MyConference.Auth.getUser().trigger('renewHeader');
+			},
 			regions: {
 		    	search: "#search",
 		    	auth: "#auth"
