@@ -21,7 +21,7 @@ define(
 				return _.template(template, {title: data.title});
 			},
 			onRender: function(){
-				MyConference.Auth.getUser().trigger('renewHeader');
+				this.MyConference.Auth.getUser().trigger('renewHeader');
 			},
 			regions: {
 		    	search: "#search",
