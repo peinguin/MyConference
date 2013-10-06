@@ -5,7 +5,7 @@ define(
 	],
 	function (
 		Marionette,
-		template,
+		template
 	) {
 		var HeaderView = Marionette.Layout.extend({
 			model: {title: undefined, toJSON: function(){return this;}},
