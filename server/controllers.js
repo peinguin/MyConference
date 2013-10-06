@@ -11,6 +11,7 @@ exports.init = function(swagger) {
 	swagger.addPost(auth.post);
 	swagger.addPost(auth.facebook);
 	swagger.addGET(auth.twitter);
+	swagger.addGET(auth.twitterCallbackAuthorized);
 	swagger.addGET(auth.twitterCallback);
 	swagger.addPost(auth.linkedin);
 	swagger.addPost(auth.google);

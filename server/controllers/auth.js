@@ -238,7 +238,74 @@ var twitter = {
 	}
 };
 
-var twitterCallback = {
+var twitterCallbackAction =	function (req,res) {
+	var process = function(){
+		var url = require('url');
+		var url_parts = url.parse(req.url, true);
+
+		req.memcache.get(url_parts.query.oauth_token, function(err, token_secret){
+			var config = {
+			    "consumerKey": cfg.twitter.consumerKey,
+			    "consumerSecret": cfg.twitter.consumerSecret,
+			    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+			};
+
+			var Twitter = require('twitter-js-client').Twitter;
+
+			var twitter = new Twitter(config);
+
+			twitter.getOAuthAccessToken(
+				{
+					token: url_parts.query.oauth_token,
+					token_secret: token_secret,
+					verifier: url_parts.query.oauth_verifier
+				},
+				function(oauth){
+
+					if(oauth.access_token){
+
+						var config = {
+						    "consumerKey": cfg.twitter.consumerKey,
+						    "consumerSecret": cfg.twitter.consumerSecret,
+						    "accessToken": oauth.access_token,
+						    "accessTokenSecret": oauth.access_token_secret,
+						    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+						};
+
+						var twitter = new Twitter(config);
+
+						twitter.doRequest(
+							twitter.baseUrl + '/account/verify_credentials.json',
+							function(err, response, body){
+								console.log(err, body);
+							},
+							function(body){
+								connect_by('twitter', JSON.parse(body).id, undefined, req, res);
+							}
+						);
+					}else{
+						console.log(oauth);
+						res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(oauth)}));
+					}
+				}
+			);
+		});
+	}
+
+	if(req.params.apikey){
+		req.memcache.get(req.params.apikey, function(error, result){
+			if(result){
+				req.user = result;
+			}
+		});
+		process();
+	}else{
+		process();
+	}
+}
+
+
+var twitterCallbackAuthorized = {
 	'spec': {
 		"description" : "User twitter auth callback",
 		"path" : "/auth.{format}/twitter_callback/{apikey}",
@@ -249,71 +316,21 @@ var twitterCallback = {
 		"errorResponses" : [],
 		"nickname" : "authUserTwitterCallback"
 	},
-	'action': function (req,res) {
-		var process = function(){
-			var url = require('url');
-			var url_parts = url.parse(req.url, true);
+	'action': twitterCallbackAction
+};
 
-			req.memcache.get(url_parts.query.oauth_token, function(err, token_secret){
-				var config = {
-				    "consumerKey": cfg.twitter.consumerKey,
-				    "consumerSecret": cfg.twitter.consumerSecret,
-				    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-				};
-
-				var Twitter = require('twitter-js-client').Twitter;
-
-				var twitter = new Twitter(config);
-
-				twitter.getOAuthAccessToken(
-					{
-						token: url_parts.query.oauth_token,
-						token_secret: token_secret,
-						verifier: url_parts.query.oauth_verifier
-					},
-					function(oauth){
-
-						if(oauth.access_token){
-
-							var config = {
-							    "consumerKey": cfg.twitter.consumerKey,
-							    "consumerSecret": cfg.twitter.consumerSecret,
-							    "accessToken": oauth.access_token,
-							    "accessTokenSecret": oauth.access_token_secret,
-							    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
-							};
-
-							var twitter = new Twitter(config);
-
-							twitter.doRequest(
-								twitter.baseUrl + '/account/verify_credentials.json',
-								function(err, response, body){
-									console.log(err, body);
-								},
-								function(body){
-									connect_by('twitter', JSON.parse(body).id, undefined, req, res);
-								}
-							);
-						}else{
-							console.log(oauth);
-							res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(oauth)}));
-						}
-					}
-				);
-			});
-		}
-
-		if(req.params.apikey){
-			req.memcache.get(req.params.apikey, function(error, result){
-				if(result){
-					req.user = result;
-				}
-			});
-			process();
-		}else{
-			process();
-		}
-	}
+var twitterCallback = {
+	'spec': {
+		"description" : "User twitter auth callback",
+		"path" : "/auth.{format}/twitter_callback",
+		"notes" : "User twitter auth callback",
+		"summary" : "User twitter auth callback",
+		"method": "GET",
+		"responseClass" : "string",
+		"errorResponses" : [],
+		"nickname" : "authUserTwitterCallback"
+	},
+	'action': twitterCallbackAction
 };
 
 var google = {
@@ -394,4 +411,5 @@ exports.facebook = facebook;
 exports.linkedin = linkedin;
 exports.twitter = twitter;
 exports.twitterCallback = twitterCallback;
+exports.twitterCallbackAuthorized = twitterCallbackAuthorized;
 exports.google = google;
