@@ -27,13 +27,10 @@ define(
 				(new AlertView).render(Helper.getErrorStringInHtml(xhr));
 			}else{
 				if(xhr && xhr.getResponseHeader(cfg.authHeader)){
-					console.log(xhr.getResponseHeader(cfg.authHeader))
 					Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
 				}else if(data.header){
-					console.log(data)
 					Storage.set('API_KEY', data);
 				}
-				console.log(Storage.get('API_KEY'))
 				renew_headers();
 				model.fetch();
 			}
