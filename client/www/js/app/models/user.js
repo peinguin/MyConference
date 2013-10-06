@@ -46,7 +46,6 @@ define(
 
 		var userModel = NewUserModel.extend({
 			defaults: {
-				id: undefined,
 				email: undefined,
 				twitter: undefined,
 				google: undefined,
