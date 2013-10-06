@@ -81,12 +81,10 @@ define(
 				})
 
 				this.fetch({
-					success: function(){
+					error: function(){
 						if(model.isNew()){
-							if(MyConference.mainView.currentView){
-								var loginForm = new LoginForm({model: model});
-								MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
-							}
+							var loginForm = new LoginForm({model: model});
+							MyConference.mainView.currentView.header.currentView.auth.show(loginForm);
 						}
 					}
 				});
