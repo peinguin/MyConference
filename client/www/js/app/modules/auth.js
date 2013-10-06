@@ -44,34 +44,14 @@ define(
 						profileView.model = User;
 						MyConference.mainView.currentView.content.show(profileView);
 					}
-				},
-				facebook: function(){
-					User.facebook();
-					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
-				},
-				twitter: function(){
-					User.twitter();
-					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
-				},
-				linkedin: function(){
-					User.linkedin();
-					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
-				},
-				google: function(){
-					User.google();
-					return (new Backbone.Router).navigate("", {trigger: true, replace: true});
-				},
+				}
 			});
 
 			var AuthRouter = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
 					"register": "register",
 					"logout":   "logout",
-					"profile":  "profile",
-					"facebook": "facebook",
-					"twitter":  "twitter",
-					"linkedin": "linkedin",
-					"google":   "google"
+					"profile":  "profile"
 				},
 				controller: new AuthController
 			});

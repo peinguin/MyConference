@@ -20,6 +20,10 @@ define(
 			},
 			events:{
 				'submit form': 'updateInfo',
+				'click [href=#facebook]': 'facebook',
+				'click [href=#twitter]': 'twitter',
+				'click [href=#google]': 'google',
+				'click [href=#linkedin]': 'linkedin',
 			},
 			onRender: function(){
 				var view = this;
@@ -55,6 +59,22 @@ define(
 					}
 					
 				);
+			},
+			facebook: function(e){
+				e.preventDefault();
+				this.model.facebook();
+			},
+			twitter: function(e){
+				e.preventDefault();
+				this.model.twitter();
+			},
+			linkedin: function(e){
+				e.preventDefault();
+				this.model.linkedin();
+			},
+			google: function(e){
+				e.preventDefault();
+				this.model.google();
 			}
 		});
 
