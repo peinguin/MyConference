@@ -22,12 +22,12 @@ define(
 				register: function(){
 
 					if(User.isNew()){
+						var registerView = new RegisterView;
+						registerView.model = User;
+						MyConference.mainView.currentView.content.show(registerView);
+					}else{
 						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 					}
-
-					var registerView = new RegisterView;
-					registerView.model = User;
-					MyConference.mainView.currentView.content.show(registerView);
 				},
 				logout: function(){
 					if(User.isNew()){
