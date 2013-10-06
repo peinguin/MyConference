@@ -58,7 +58,7 @@ define(
 
 				if(
 					MyConference.mainView.currentView &&
-					MyConference.mainView.currentView.header
+					MyConference.mainView.currentView.header.currentView
 				){
 					if(model.isNew()){
 						var loginForm = new LoginForm({model: model});
