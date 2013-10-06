@@ -5,11 +5,12 @@ define(
 	],
 	function (
 		Marionette,
-		template
+		template,
 	) {
 		var HeaderView = Marionette.Layout.extend({
 			model: {title: undefined, toJSON: function(){return this;}},
 			title: undefined,
+			MyConference: undefined,
 			setHeader: function(title){
 				if(!this.title){
 					this.title = this.$el.find('#title');

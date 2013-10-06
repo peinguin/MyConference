@@ -34,6 +34,7 @@ define(
 
 			MyConference.mainView.show(mainLayout);
 			var headerView = new HeaderView;
+			headerView.MyConference = MyConference;
 			mainLayout.header.show(headerView);
 
 			MyConference.Conferences.start();
