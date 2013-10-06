@@ -30,7 +30,6 @@ var connect_by = function(service, id, email, req, res){
 					});
 				}
 			}else{
-				console.log(req.user);
 				if(req.user){
 					req.db.models.users.get(req.user, function(err, user){
 						if(err){
