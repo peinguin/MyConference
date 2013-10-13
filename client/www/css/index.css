@@ -145,3 +145,12 @@ body{
         padding-top: 110px;
     }
 }
+
+.conference p.lead{
+    text-align: justify;
+}
+
+.conference #file img,
+.conference #file canvas{
+    max-width: 100%;
+}

@@ -1,0 +1,3 @@
+<button type="button" class="btn btn-success">I will go</button>
+<button type="button" class="btn btn-info">Favorite</button>
+<button type="button" class="btn btn-danger">I will not go</button>

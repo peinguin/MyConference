@@ -81,6 +81,10 @@ define(
 					}
 
 					model.showHeader();
+					
+					if(MyConference.getMainLayout().content.currentView){
+						MyConference.getMainLayout().content.currentView.renderDecisionBlock();
+					}
 				});
 
 				this.on('renewHeader', function(){

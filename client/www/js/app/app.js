@@ -28,10 +28,11 @@ define(
 		    	content: "#content"
 			}
 		});
+
+		var mainLayout = undefined;
 		
 		MyConference.addInitializer(function(options){
-		 	var mainLayout = new MainLayout;
-
+			mainLayout = new MainLayout;
 			MyConference.mainView.show(mainLayout);
 			var headerView = new HeaderView;
 			headerView.MyConference = MyConference;
@@ -40,6 +41,10 @@ define(
 			MyConference.Conferences.start();
 			MyConference.Auth.start();
 		});
+
+		MyConference.getMainLayout = function(){
+			return mainLayout;
+		}
 
 		MyConference.on("initialize:after", function(options){
 			Backbone.history.start();
