@@ -54,5 +54,17 @@ var get = {
 	}
 };
 
+var go = {
+
+};
+
+var not_go = {
+
+};
+
+var favorite = {
+
+};
+
 exports.list = list;
 exports.get = get;
