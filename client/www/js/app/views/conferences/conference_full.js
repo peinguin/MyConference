@@ -4,14 +4,16 @@ define(
 		'text!app/templates/conferences/conference_full.htt',
 		'app/views/conferences/decision/logged_in',
 		'app/views/conferences/decision/guest',
-		'app/app'
+		'app/app',
+		'app/models/decision'
 	],
 	function (
 		Marionette,
 		ConferenceFullTemplate,
 		LoggedInDecisionView,
 		GuestDecisionView,
-		MyConference
+		MyConference,
+		DecisionModel
 	) {
 
 		var renderOpenStreetMap = function(lat, lng, callback){
@@ -150,7 +152,20 @@ define(
     		},
 
     		renderDecisionBlock: function(){
-    			this.decision.show(MyConference.Auth.getUser().isNew()?(new GuestDecisionView):(new LoggedInDecisionView));
+
+    			var view = this;
+
+    			if(MyConference.Auth.getUser().isNew()){
+    				var view = new GuestDecisionView;
+    			}else{
+    				var desisionModel = new DecisionModel(view.model.get('decision'));
+    				var view = new LoggedInDecisionView({model: desisionModel});
+    				view.parent = this;
+    			}
+    			this.decision.show(view);
+    		},
+    		getConference: function(){
+    			return this.model.id;
     		}
 		});
 

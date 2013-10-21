@@ -18,4 +18,6 @@ exports.init = function(swagger) {
 	swagger.addDELETE(auth.del);
 	swagger.addGET(conferences.get);
 	swagger.addGET(conferences.list);
+	swagger.addPOST(conferences.decision);
+	swagger.addDELETE(conferences.reject);
 }

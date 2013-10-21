@@ -1,3 +1,3 @@
-<button type="button" class="btn btn-success">I will go</button>
-<button type="button" class="btn btn-info">Favorite</button>
-<button type="button" class="btn btn-danger">I will not go</button>
+<button type="button" class="btn btn-success <% if(decision == 'go'){ %>glyphicon glyphicon-ok<% } %>">I will go</button>
+<button type="button" class="btn btn-info    <% if(decision == 'favorite'){ %>glyphicon glyphicon-ok<% } %>">Favorite</button>
+<button type="button" class="btn btn-danger  <% if(decision == 'not go'){ %>glyphicon glyphicon-ok<% } %>">I will not go</button>
