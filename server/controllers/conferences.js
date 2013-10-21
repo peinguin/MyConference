@@ -1,4 +1,5 @@
 var swagger = require("swagger-node-express");
+var orm = require('orm');
 
 var list = {
 	'spec': {
@@ -11,7 +12,29 @@ var list = {
 		"nickname" : "conferencesList"
 	},
 	'action': function (req,res) {
-		req.db.models.conferences.find(5, function(err, conferences){
+
+		var order = ['conferences.id desc'];
+		var params = [];
+
+		if(req.user){
+			var conditions = [];
+			params.push(req.user);
+			conditions.push('(decision <> \'not go\' OR decision is NULL)');
+			order.unshift('decision = \'favorite\' desc');
+			order.unshift('decision = \'go\' desc');
+		}
+
+		var sql = 
+			"SELECT conferences.id,conferences.title "+
+			"FROM conferences"+
+				(req.user?" LEFT JOIN decisions ON (decisions.conference_id = conferences.id AND decisions.user = ?)"+
+			"WHERE "+conditions.join(' AND '):'')+
+			" ORDER BY "+order.join(',');
+
+		req.db.driver.execQuery(
+		  sql,
+		  params,
+		  function(err, conferences){
 			if(err){
 				res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
 			}else{
