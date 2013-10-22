@@ -23,5 +23,18 @@ exports.models = {
                 "type":"string"
             },
         }
+    },
+    "Decision":{
+        id:"Decision",
+        "properties":{
+            "decision":{
+                "type":"string",
+                "enum": [
+                    "go",
+                    "not go",
+                    "favorite"
+                ]
+            }
+        }
     }
   }

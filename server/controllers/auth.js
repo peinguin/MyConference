@@ -16,7 +16,7 @@ var connect_by = function(service, id, email, req, res){
 					if(req.user == user.id){
 						user[service] = id;
 						user.save(function (err) {
-							res.send(200, JSON.stringify({user:user}));
+							res.send(200);
 						});
 					}else{
 						res.send(401, JSON.stringify({error:"This "+service+" account already used by other user"}));
@@ -25,17 +25,21 @@ var connect_by = function(service, id, email, req, res){
 					req.generate_code(function(code){
 						req.memcache.set(code, user.id, function(){
 							res.header(cfg.header,  code);
-							res.send(JSON.stringify({user:user,header:code}));
+							res.send(code);
 						});
 					});
 				}
 			}else{
 				if(req.user){
-					req.db.models.users.find(req.user, function(err, user){
-						user[service] = id;
-					    user.save(function (err) {
-							res.send(JSON.stringify({user:user}));
-						});
+					req.db.models.users.get(req.user, function(err, user){
+						if(err){
+							res.send(500, JSON.stringify(err));
+						}else{
+							user[service] = id;
+						    user.save(function (err) {
+								res.send();
+							});
+						}
 					});
 				}else{
 					req.db.models.users.find({email: email}, function(err, finded_user){
@@ -59,7 +63,7 @@ var connect_by = function(service, id, email, req, res){
 							    	req.generate_code(function(code){
 										req.memcache.set(code, finded_user.id, function(){
 											res.header(cfg.header,  code);
-											res.send(JSON.stringify({user:finded_user,header:code}));
+											res.send(code);
 										});
 									});
 							    }
@@ -109,7 +113,7 @@ var post = {
 					req.generate_code(function(code){
 						req.memcache.set(code, finded_user.id, function(){
 							res.header(cfg.header,  code);
-							res.send(JSON.stringify(finded_user));
+							res.send();
 						});
 					});
 				}
@@ -145,7 +149,7 @@ var facebook = {
 		FB.setAccessToken(req.body.FacebookKEY);
 
 		FB.api('/me', function(err, data) {
-			connect_by('facebook', JSON.parse(body).id, JSON.parse(body).email, req, res);
+			connect_by('facebook', data.id, data.email, req, res);
 		});
 	}
 };
@@ -206,7 +210,7 @@ var linkedin = {
 var twitter = {
 	'spec': {
 		"description" : "User twitter auth",
-		"path" : "/auth.{format}/twitter",
+		"path" : "/auth.{format}/twitter/{apikey}",
 		"notes" : "User twitter auth",
 		"summary" : "User twitter auth",
 		"method": "GET",
@@ -218,7 +222,7 @@ var twitter = {
 		var config = {
 		    "consumerKey": cfg.twitter.consumerKey,
 		    "consumerSecret": cfg.twitter.consumerSecret,
-		    "callBackUrl": cfg.host + twitterCallback.spec.path.replace('{format}', 'json')
+		    "callBackUrl": cfg.host + twitterCallbackAuthorized.spec.path.replace('{format}', 'json').replace('{apikey}', req.params.apikey)
 		}
 
 		var Twitter = require('twitter-js-client').Twitter;
@@ -234,19 +238,8 @@ var twitter = {
 	}
 };
 
-var twitterCallback = {
-	'spec': {
-		"description" : "User twitter auth callback",
-		"path" : "/auth.{format}/twitter_callback",
-		"notes" : "User twitter auth callback",
-		"summary" : "User twitter auth callback",
-		"method": "GET",
-		"responseClass" : "string",
-		"errorResponses" : [],
-		"nickname" : "authUserTwitterCallback"
-	},
-	'action': function (req,res) {
-
+var twitterCallbackAction =	function (req,res) {
+	var process = function(){
 		var url = require('url');
 		var url_parts = url.parse(req.url, true);
 
@@ -298,6 +291,45 @@ var twitterCallback = {
 			);
 		});
 	}
+
+	if(req.params.apikey){
+		req.memcache.get(req.params.apikey, function(error, result){
+			if(result){
+				req.user = result;
+			}
+			process();
+		});
+	}else{
+		process();
+	}
+}
+
+var twitterCallbackAuthorized = {
+	'spec': {
+		"description" : "User twitter auth callback",
+		"path" : "/auth.{format}/twitter_callback/{apikey}",
+		"notes" : "User twitter auth callback",
+		"summary" : "User twitter auth callback",
+		"method": "GET",
+		"responseClass" : "string",
+		"errorResponses" : [],
+		"nickname" : "authUserTwitterCallback"
+	},
+	'action': twitterCallbackAction
+};
+
+var twitterCallback = {
+	'spec': {
+		"description" : "User twitter auth callback",
+		"path" : "/auth.{format}/twitter_callback",
+		"notes" : "User twitter auth callback",
+		"summary" : "User twitter auth callback",
+		"method": "GET",
+		"responseClass" : "string",
+		"errorResponses" : [],
+		"nickname" : "authUserTwitterCallback"
+	},
+	'action': twitterCallbackAction
 };
 
 var google = {
@@ -339,7 +371,8 @@ var google = {
 	        });
 
 	        resp.on('end', function() {
-	            connect_by('google', JSON.parse(output).id, JSON.parse(output).email, req, res);
+	        	var data = JSON.parse(output);
+	            connect_by('google', data.id, data.email, req, res);
 	        });
 	    });
 
@@ -377,4 +410,5 @@ exports.facebook = facebook;
 exports.linkedin = linkedin;
 exports.twitter = twitter;
 exports.twitterCallback = twitterCallback;
+exports.twitterCallbackAuthorized = twitterCallbackAuthorized;
 exports.google = google;

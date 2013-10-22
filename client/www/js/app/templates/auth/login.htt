@@ -16,7 +16,7 @@
 	    <li><a href="#google">Google</a></li>
 	    <li><a href="#linkedin">LinkedIn</a></li>
 	    <li class="divider"></li>
-	    <li><a href="#not_implemented">Register</a></li>
+	    <li><a href="#register">Register</a></li>
 	  </ul>
 	</div>
 </form>

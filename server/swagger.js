@@ -9,8 +9,8 @@ module.exports = exports = function (app) {
 	app.use(function(req, res, next) {
 	    res.header('Access-Control-Allow-Origin', '*');
 	    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	    res.header('Access-Control-Allow-Headers',  cfg.header);
-	    res.header('Access-Control-Expose-Headers', cfg.header);
+	    res.header('Access-Control-Allow-Headers',  cfg.header+', Content-Type');
+	    res.header('Access-Control-Expose-Headers', cfg.header+', Content-Type');
 
 	    if (req.method == 'OPTIONS') {
 	        res.send(200);

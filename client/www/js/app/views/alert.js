@@ -14,7 +14,7 @@ define([
 	    	}
 
 	    	if(!type){
-	    		type = 'error';
+	    		type = 'danger';
 	    	}
 	    	var data = {
 	    		text:text,

@@ -1,4 +1,5 @@
 var swagger = require("swagger-node-express");
+var orm = require('orm');
 
 var list = {
 	'spec': {
@@ -11,7 +12,29 @@ var list = {
 		"nickname" : "conferencesList"
 	},
 	'action': function (req,res) {
-		req.db.models.conferences.find(5, function(err, conferences){
+
+		var order = ['conferences.id desc'];
+		var params = [];
+
+		if(req.user){
+			var conditions = [];
+			params.push(req.user);
+			conditions.push('(decision <> \'not go\' OR decision is NULL)');
+			order.unshift('decision = \'favorite\' desc');
+			order.unshift('decision = \'go\' desc');
+		}
+
+		var sql = 
+			"SELECT conferences.id,conferences.title "+
+			"FROM conferences"+
+				(req.user?" LEFT JOIN decisions ON (decisions.conference_id = conferences.id AND decisions.user = ?)"+
+			"WHERE "+conditions.join(' AND '):'')+
+			" ORDER BY "+order.join(',');
+
+		req.db.driver.execQuery(
+		  sql,
+		  params,
+		  function(err, conferences){
 			if(err){
 				res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
 			}else{
@@ -45,7 +68,18 @@ var get = {
 					if(conference.file){
 						conference.file = '/static/' + conference.file;
 					}
-					res.send(200, JSON.stringify(conference));
+					if(req.user){
+						conference.getDecision({user: req.user}, function(err, decision){
+							if(err){
+								res.send(500, JSON.stringify(err));
+							}else{
+								conference.decision = decision.pop();
+								res.send(200, JSON.stringify(conference));
+							}
+						});
+					}else{
+						res.send(200, JSON.stringify(conference));
+					}
 				}else{
 					throw swagger.errors.notFound('conference');
 				}
@@ -54,5 +88,122 @@ var get = {
 	}
 };
 
+var decision = {
+	'spec': {
+		"description" : "Make decision about conference",
+		"path" : "/decision.{format}/{conferenceId}",
+		"notes" : "Conference decision",
+		"summary" : "Conference decision",
+		"method": "POST",
+		"responseClass" : "string",
+		"nickname" : "conferenceDecison",
+		"parameters":[
+          {
+            "paramType": "body",
+            "name": "Decision",
+            "description": "Conference decision",
+            "dataType": "string",
+            "required": true,
+            "allowMultiple": false
+          },
+          {
+          	"paramType": "path",
+          	"name": "conferenceId",
+          	"decision":"Id of conference",
+          	"dataType": "integer",
+          	"required": true
+          }
+        ]
+	},
+	'action': function (req,res) {
+
+		var conferenceId = parseInt(req.params.conferenceId);
+		if (!conferenceId) {
+	      throw swagger.errors.invalid('conferenceId'); }
+	    
+		if(req.user){
+			req.db.models.decisions.find({conference_id: conferenceId, user: req.user}, function(err, decisions){
+				if(decisions && decisions.length > 0){
+					var decision = decisions.pop();
+					decision.decision = req.body.decision;
+					decision.save(function(err){
+						if(err){
+							res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
+						}else{
+							res.send(200, JSON.stringify(decision));
+						}
+					});
+				}else{
+					req.db.models.decisions.create([{
+						user: req.user,
+						conference_id: conferenceId,
+						decision: req.body.decision
+					}], function(err, items){
+						if(err){
+							res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
+						}else{
+							res.send(200, JSON.stringify(items.pop()));
+						}
+					});
+				}
+			});
+		}else{
+			res.send(403, JSON.stringify({code: 403, header: 'Forbidden', message: 'You have to log in'}));
+		}
+	}
+};
+
+var reject = {
+	'spec': {
+		"description" : "Reject conference decision",
+		"path" : "/decision.{format}/{conferenceId}",
+		"notes" : "Reject decision",
+		"summary" : "Reject decision",
+		"method": "POST",
+		"responseClass" : "string",
+		"nickname" : "rejectDecision",
+		"parameters":[
+          {
+            "paramType": "path",
+            "name": "conferenceId",
+            "description": "Conference id",
+            "dataType": "int",
+            "required": true
+          }
+        ]
+	},
+	'action': function (req,res) {
+		var conferenceId = parseInt(req.params.conferenceId);
+		if (!conferenceId) {
+	      throw swagger.errors.invalid('conferenceId'); }
+	    
+		if(req.user){
+			req.db.models.decisions.find({conference_id: conferenceId, user: req.user}, function(err, decisions){
+				if(decisions && decisions.length > 0){
+					var decision = decisions.pop();
+				}else{
+					res.send(404);
+				}
+				if(err){
+					res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
+				}else{
+					decision.remove(function(err){
+						if(err){
+							res.send(500, JSON.stringify({code: 500, header: 'Internal Server Error', message: JSON.stringify(err)}));
+						}else{
+							res.send(200, {status: 'OK'});
+						}
+					});
+				}
+			});
+		}else{
+			res.send(403, JSON.stringify({code: 403, header: 'Forbidden', message: 'You have to log in'}));
+		}
+	}
+};
+
 exports.list = list;
 exports.get = get;
+
+exports.decision = decision;
+exports.reject = reject;

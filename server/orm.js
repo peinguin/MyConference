@@ -3,6 +3,7 @@ var orm = require('orm');
 exports.init = function (app) {
 	app.use(orm.express('sqlite://'+__dirname+'/db.sqlite', {
 	    define: function (db, models) {
+
 	        db.define("users", {
 		        id       : Number,
 		        email    : String,
@@ -11,8 +12,19 @@ exports.init = function (app) {
 		        facebook : Number,
 		        google   : Number,
 		        linkedin : String
+		    },
+		    {
+		        validations: {
+		        	email: [
+		        		orm.enforce.unique("Email already taken!"),
+		        		orm.enforce.unique({ ignoreCase: true }),
+		            	orm.enforce.notEmptyString()
+		            ],
+		            password: orm.enforce.notEmptyString()
+		        },
+		    	id: "id"
 		    });
-		    db.define("conferences", {
+		    var Conferences = db.define("conferences", {
 		        id          : Number,
 		        title       : String,
 		        description : String,
@@ -26,7 +38,19 @@ exports.init = function (app) {
 		        telephone   : String,
 		        cost        : String,
 		        file        : String
+		    },{
+		    	id: "id"
 		    });
+		    var Decisions = db.define("decisions", {
+		    	id            : Number,
+		    	decision      : ['go', 'not go', 'favorite'],
+		    	user          : Number,
+		    	conference_id : Number
+		    },{
+		    	id: "id",
+		    	cache: false
+		    });
+		    Decisions.hasOne('conference', Conferences, {reverse: 'decision'})
 	    }
 	}));
 }

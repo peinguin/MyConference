@@ -11,23 +11,18 @@ define(
 			},
 			events:{
 				'submit form': 'login',
-				"click [href=\"#not_implemented\"]": "not_implemented",
-				"click [href=\"#facebook\"]"       : "facebook",
-				"click [href=\"#twitter\"]"        : "twitter",
-				"click [href=\"#linkedin\"]"       : "linkedin",
-				"click [href=\"#google\"]"         : "google"
+				'click [href=#facebook]': 'facebook',
+				'click [href=#twitter]': 'twitter',
+				'click [href=#google]': 'google',
+				'click [href=#linkedin]': 'linkedin',
 			},
 			login: function(e){
 				e.preventDefault();
 				this.model.login(e.target);
 			},
-			not_implemented: function(e){
+			facebook: function(e){
 				e.preventDefault();
-				alert('Not implemented yet');
-			},
-			google: function(e){
-				e.preventDefault();
-				this.model.google();
+				this.model.facebook();
 			},
 			twitter: function(e){
 				e.preventDefault();
@@ -37,9 +32,9 @@ define(
 				e.preventDefault();
 				this.model.linkedin();
 			},
-			facebook: function(e){
+			google: function(e){
 				e.preventDefault();
-				this.model.facebook();
+				this.model.google();
 			}
 		});
 

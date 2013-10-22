@@ -2,34 +2,47 @@ define(
 	[
 		'app/app',
 		'marionette',
-		'app/models/user'
+		'app/models/user',
+		'app/views/auth/register',
+		'app/views/auth/profile'
 	],
 	function(
 		MyConference,
 		Marionette,
-		UserModel
+		UserModel,
+		RegisterView,
+		ProfileView
 	){
 
 		MyConference.module("Auth", function(AuthModule){
 
-			User = undefined;
+			var User = new UserModel;
 
 			var AuthController = Marionette.Controller.extend({
 				register: function(){
 
-					if(User.get('isGuest') === false){
+					if(User.isNew()){
+						var registerView = new RegisterView;
+						registerView.model = User;
+						MyConference.mainView.currentView.content.show(registerView);
+					}else{
 						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 					}
-
-					var registerView = new RegisterView;
-					registerView.controller = this;
-					MyConference.mainView.show(registerView);
 				},
 				logout: function(){
-					if(User.get('isGuest') === true){
+					if(User.isNew()){
 						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 					}else{
 						User.logout();
+					}
+				},
+				profile: function(){
+					if(User.isNew()){
+						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}else{
+						var profileView = new ProfileView;
+						profileView.model = User;
+						MyConference.mainView.currentView.content.show(profileView);
 					}
 				}
 			});
@@ -37,13 +50,13 @@ define(
 			var AuthRouter = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
 					"register": "register",
-					"logout": "logout"
+					"logout":   "logout",
+					"profile":  "profile"
 				},
 				controller: new AuthController
 			});
 
 			AuthModule.addInitializer(function(){
-				User = new UserModel;
 				new AuthRouter;
 			});
 

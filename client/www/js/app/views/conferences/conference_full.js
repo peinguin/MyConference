@@ -2,10 +2,18 @@ define(
 	[
 		'marionette',
 		'text!app/templates/conferences/conference_full.htt',
+		'app/views/conferences/decision/logged_in',
+		'app/views/conferences/decision/guest',
+		'app/app',
+		'app/models/decision'
 	],
 	function (
 		Marionette,
-		ConferenceFullTemplate
+		ConferenceFullTemplate,
+		LoggedInDecisionView,
+		GuestDecisionView,
+		MyConference,
+		DecisionModel
 	) {
 
 		var renderOpenStreetMap = function(lat, lng, callback){
@@ -29,19 +37,19 @@ define(
 		var renderGoogleMap = function(lat, lng, callback){
 
 			window.initialize = function(){
-					window.initialize = undefined;
-					var div=document.createElement("div");
+				window.initialize = undefined;
+				var div=document.createElement("div");
 
-					var mapOptions = {
-					    zoom: 8,
-					    center: new google.maps.LatLng(lat, lng),
-					    mapTypeId: google.maps.MapTypeId.ROADMAP
-					};
-					map = new google.maps.Map(div, mapOptions);
-					div.style.height = '270px';
+				var mapOptions = {
+				    zoom: 8,
+				    center: new google.maps.LatLng(lat, lng),
+				    mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				map = new google.maps.Map(div, mapOptions);
+				div.style.height = '270px';
 
-					callback(div);
-				}
+				callback(div);
+			}
 
 			require(
 				['https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize'],
@@ -49,7 +57,7 @@ define(
 			);
 		}
 
-		var ConferenceFullView = Marionette.ItemView.extend({
+		var ConferenceFullView = Marionette.Layout.extend({
 			el:'<div class="conference"></div>',
 			template: function(model){
 				return _.template(ConferenceFullTemplate, model);
@@ -135,7 +143,30 @@ define(
 						view.$el.find('#file').html('<a href="'+file+'" >File</a>');
 					}
 				}
-			}
+
+				this.renderDecisionBlock();
+			},
+
+			regions: {
+    			decision: "#decision"
+    		},
+
+    		renderDecisionBlock: function(){
+
+    			var view = this;
+
+    			if(MyConference.Auth.getUser().isNew()){
+    				var view = new GuestDecisionView;
+    			}else{
+    				var desisionModel = new DecisionModel(view.model.get('decision'));
+    				var view = new LoggedInDecisionView({model: desisionModel});
+    				view.parent = this;
+    			}
+    			this.decision.show(view);
+    		},
+    		getConference: function(){
+    			return this.model.id;
+    		}
 		});
 
 		return ConferenceFullView;
