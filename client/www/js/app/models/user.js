@@ -235,7 +235,6 @@ define(
 				var model = this;
 				var childWin = window.open(cfg.baseUrl + 'auth.json/twitter', 'twittet Auth', "height=640,width=480");
 				childWin.onunload = function(){
-
 					var check = function(){
 						if(childWin.document){
 							var body = childWin.document.getElementsByTagName("body")[0];
