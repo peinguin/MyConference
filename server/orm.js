@@ -50,7 +50,26 @@ exports.init = function (app) {
 		    	id: "id",
 		    	cache: false
 		    });
-		    Decisions.hasOne('conference', Conferences, {reverse: 'decision'})
+		    var Streams = db.define("streams", {
+		    	id            : Number,
+		    	title         : String,
+		    	conference_id : Number
+		    },{
+		    	id: "id"
+		    });
+		    var Timeslots = db.define("timeslots", {
+		    	id        : Number,
+		    	time      : String,
+		    	speaker   : String,
+		    	title     : String,
+		    	stream_id : Number
+		    },{
+		    	id: "id"
+		    });
+
+		    Decisions.hasOne('conference', Conferences, {reverse: 'decision'});
+		    Streams.hasOne('conference', Conferences, {reverse: 'streams'})
+		    Timeslots.hasOne('stream', Streams, {reverse: 'timeslots'})
 	    }
 	}));
 }

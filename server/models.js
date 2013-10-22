@@ -36,5 +36,36 @@ exports.models = {
                 ]
             }
         }
+    },
+    "Stream":{
+        id:"Stream",
+        "properties":{
+            id:{
+                "type":"integer"
+            },
+            title:{
+                "type":"string"
+            },
+            timelines:{
+                "type": "array",
+                "items": {
+                    "$ref": "Timeline"
+                }
+            }
+        }
+    },
+    "Timeline":{
+        id:"Timeline",
+        "properties":{
+            id:{
+                "type":"integer"
+            },
+            "title":{
+                "type":"string"
+            },
+            "skeaker":{
+                "type":"string"
+            }
+        }
     }
   }

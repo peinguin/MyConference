@@ -1,6 +1,7 @@
 var user = require('./controllers/user');
 var auth = require('./controllers/auth');
 var conferences = require('./controllers/conferences');
+var stream = require('./controllers/stream');
 
 exports.init = function(swagger) {
 	swagger.addPost(user.post);
@@ -16,8 +17,12 @@ exports.init = function(swagger) {
 	swagger.addPost(auth.linkedin);
 	swagger.addPost(auth.google);
 	swagger.addDELETE(auth.del);
+
 	swagger.addGET(conferences.get);
 	swagger.addGET(conferences.list);
 	swagger.addPOST(conferences.decision);
 	swagger.addDELETE(conferences.reject);
+
+	swagger.addGET(stream.get);
+	swagger.addGET(stream.list);
 }

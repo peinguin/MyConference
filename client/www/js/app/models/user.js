@@ -81,8 +81,10 @@ define(
 					}
 
 					model.showHeader();
-					
-					if(MyConference.getMainLayout().content.currentView){
+					if(
+						MyConference.getMainLayout().content.currentView &&
+						MyConference.getMainLayout().content.currentView.decision
+					){
 						MyConference.getMainLayout().content.currentView.renderDecisionBlock();
 					}
 				});

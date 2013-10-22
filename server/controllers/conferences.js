@@ -8,7 +8,7 @@ var list = {
 		"notes" : "Get conferences",
 		"summary" : "Get conferences",
 		"method": "GET",
-		"responseClass" : "Set(conferences)",
+		"responseClass" : "Set(Conference)",
 		"nickname" : "conferencesList"
 	},
 	'action': function (req,res) {
@@ -51,7 +51,7 @@ var get = {
 		"notes" : "Get conference",
 		"summary" : "Get conference",
 		"method": "GET",
-		"responseClass" : "conference",
+		"responseClass" : "Conference",
 		"nickname" : "conference"
 	},
 	'action': function (req,res) {
