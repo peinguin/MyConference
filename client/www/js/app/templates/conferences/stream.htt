@@ -1,0 +1,5 @@
+<ul>
+	<% for(var i in timeslots){ %>
+		<li><%= timeslots[i].time %> <%= timeslots[i].speaker %> <%= timeslots[i].title %></li>
+	<% } %>
+</ul>

@@ -5,6 +5,7 @@
 
 <div class="row">
 	<div class="col-md-7">
+		<a href="#streams/<%= id %>" class="pull-right">Streams</a>
 		<% if(logo){ %><img src="<%= logo %>" class="pull-left"/><% } %><h1><%= title %></h1>
 		<div class="decision" id="decision"></div>
 		<p class="lead"><%= description %></p>

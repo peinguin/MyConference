@@ -22,7 +22,8 @@ exports.init = function (app) {
 		            ],
 		            password: orm.enforce.notEmptyString()
 		        },
-		    	id: "id"
+		    	id: "id",
+		    	autoFetch: false
 		    });
 		    var Conferences = db.define("conferences", {
 		        id          : Number,
@@ -39,7 +40,8 @@ exports.init = function (app) {
 		        cost        : String,
 		        file        : String
 		    },{
-		    	id: "id"
+		    	id: "id",
+		    	autoFetch: false
 		    });
 		    var Decisions = db.define("decisions", {
 		    	id            : Number,
@@ -48,14 +50,16 @@ exports.init = function (app) {
 		    	conference_id : Number
 		    },{
 		    	id: "id",
-		    	cache: false
+		    	cache: false,
+		    	autoFetch: false
 		    });
 		    var Streams = db.define("streams", {
 		    	id            : Number,
 		    	title         : String,
 		    	conference_id : Number
 		    },{
-		    	id: "id"
+		    	id: "id",
+		    	autoFetch: false
 		    });
 		    var Timeslots = db.define("timeslots", {
 		    	id        : Number,
@@ -64,7 +68,8 @@ exports.init = function (app) {
 		    	title     : String,
 		    	stream_id : Number
 		    },{
-		    	id: "id"
+		    	id: "id",
+		    	autoFetch: false
 		    });
 
 		    Decisions.hasOne('conference', Conferences, {reverse: 'decision'});

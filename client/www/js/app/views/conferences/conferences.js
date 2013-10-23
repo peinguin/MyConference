@@ -8,7 +8,7 @@ define(
 		ConferenceTemplate
 	) {
 
-		ConferenceView = Marionette.ItemView.extend({
+		var ConferenceView = Marionette.ItemView.extend({
 			template: function(model){
 				return _.template(ConferenceTemplate, model);
 			},

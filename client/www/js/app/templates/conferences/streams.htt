@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs">
+	<li><a href="#conference/<%= conference_id %>">Back</a></li>
+
+	<% streams.each(function(stream){ %>
+		<li data-id="<%= stream.get('id') %>"><a href="#stream/<%= stream.get('id') %>"><%= stream.get('title') %></a></li>
+	<% }); %>
+
+</ul>
+<div class="stream"></div>

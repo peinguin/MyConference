@@ -8,7 +8,7 @@ define(
 		Template
 	) {
 
-		var ConferenceFullView = Marionette.ItemView.extend({
+		var SearchView = Marionette.ItemView.extend({
 			el:'<form role="search" class="navbar-form navbar-left"></form>',
 			template: function(model){
 				return _.template(Template, model);
@@ -22,6 +22,6 @@ define(
 			}
 		});
 
-		return ConferenceFullView;
+		return SearchView;
 	}
 );
