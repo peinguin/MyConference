@@ -21,3 +21,5 @@ exports.google = {
 
 exports.listen = 8002;
 exports.host = 'http://myconference.php.poltava.ua';
+
+exports.db = 'sqlite://'+__dirname+'/db.sqlite';

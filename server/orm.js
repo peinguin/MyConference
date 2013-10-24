@@ -1,7 +1,8 @@
 var orm = require('orm');
+var config = require('./config');
 
 exports.init = function (app) {
-	app.use(orm.express('sqlite://'+__dirname+'/db.sqlite', {
+	app.use(orm.express(config.db, {
 	    define: function (db, models) {
 
 	        db.define("users", {

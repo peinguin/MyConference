@@ -2,3 +2,4 @@ server/node_modules/*
 server/config.js
 server/db.sqlite
 client/www/js/app/config.js
+openshift
