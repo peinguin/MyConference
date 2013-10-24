@@ -1,0 +1,5 @@
+CREATE TABLE "conferences" ("id" INTEGER PRIMARY KEY  NOT NULL ,"title" VARCHAR(255) NOT NULL  DEFAULT (null) ,"description" TEXT,"datetime" DATETIME, "place" VARCHAR, "location" VARCHAR, "site" VARCHAR, "logo" VARCHAR, "facebook" VARCHAR, "twitter" VARCHAR, "telephone" VARCHAR(32), "cost", "file" VARCHAR);
+CREATE TABLE "decisions" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "decision" VARCHAR NOT NULL , "conference_id" INTEGER NOT NULL , "user" INTEGER NOT NULL );
+CREATE TABLE "streams" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "title" VARCHAR NOT NULL , "conference_id" INTEGER NOT NULL );
+CREATE TABLE "timeslots" ("id" INTEGER PRIMARY KEY  NOT NULL ,"time" VARCHAR NOT NULL ,"speaker" VARCHAR NOT NULL ,"stream_id" INTEGER NOT NULL  DEFAULT (null) , "title" VARCHAR);
+CREATE TABLE "users" ("id" INTEGER PRIMARY KEY ,"email" VARCHAR(255),"password" VARCHAR(255),"twitter" INTEGER,"facebook" INTEGER,"google" INTEGER,"linkedin" VARCHAR(255) DEFAULT (null) );
