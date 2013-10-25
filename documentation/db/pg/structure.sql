@@ -11,7 +11,7 @@ CREATE TABLE users (
   password character varying(255),
   twitter INTEGER DEFAULT null,
   facebook INTEGER DEFAULT null,
-  google INTEGER DEFAULT null,
+  google character varying(255) DEFAULT null,
   linkedin character varying(255) DEFAULT NULL
 );
 CREATE TYPE decision AS ENUM ('go', 'favorite', 'not go');
