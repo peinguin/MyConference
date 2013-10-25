@@ -14,4 +14,4 @@ orm.init(app);
 swagger(app);
 static_files(app);
 
-app.listen(config.listen);
+app.listen(config.listen, config.ipaddr);

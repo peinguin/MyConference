@@ -10,6 +10,7 @@
   	"qs": "*",
   	"multiparty": "*",
     "twitter-js-client": "*",
-    "facebook-node-sdk": "*"
+    "facebook-node-sdk": "*",
+    "pg": "*"
   }
 }

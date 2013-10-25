@@ -20,6 +20,7 @@ exports.google = {
 };
 
 exports.listen = 8002;
+exports.ipaddr = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 exports.host = 'http://myconference.php.poltava.ua';
 
 exports.db = 'sqlite://'+__dirname+'/db.sqlite';
