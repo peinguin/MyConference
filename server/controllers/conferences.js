@@ -27,7 +27,7 @@ var list = {
 		var sql = 
 			"SELECT conferences.id,conferences.title "+
 			"FROM conferences"+
-				(req.user?" LEFT JOIN decisions ON (decisions.conference_id = conferences.id AND decisions.user = ?)"+
+				(req.user?" LEFT JOIN decisions ON (decisions.conference_id = conferences.id AND decisions.user_id = ?)"+
 			"WHERE "+conditions.join(' AND '):'')+
 			" ORDER BY "+order.join(',');
 
