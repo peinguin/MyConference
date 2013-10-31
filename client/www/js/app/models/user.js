@@ -178,7 +178,7 @@ define(
 
 				window.fbAsyncInit = function() {
 				    FB.init({
-				      appId      : '1410429849185535', // App ID
+				      appId      : cfg.facebookAppId, // App ID
 				      status     : true, // check login status
 				      cookie     : true, // enable cookies to allow the server to access the session
 				      xfbml      : true  // parse XFBML
@@ -203,7 +203,7 @@ define(
 
 					gapi.auth.authorize(
 						{
-							client_id:'774864135362.apps.googleusercontent.com',
+							client_id: cfg.googleClientId,
 							scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me'
 						},
 						function(a){
@@ -271,7 +271,7 @@ define(
 				     if (d.getElementById(id)) {return window.onLinkedinLoad();}
 				     js = d.createElement('script'); js.id = id; js.type = 'text/javascript';js.async = true;
 				     js.innerHTML = 
-				     	"api_key:5i9vcxh80gl3\n\
+				     	"api_key:"+cfg.linjedInApiKey+"\n\
 				     	authorize: true\n\
 				     	onLoad: onLinkedinLoad";
 				     js.src = "http://platform.linkedin.com/in.js";

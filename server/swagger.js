@@ -23,7 +23,7 @@ module.exports = exports = function (app) {
 	swagger.setAppHandler(app);
 	swagger.addModels(models);
 	controllers.init(swagger);
-	swagger.configure("http://localhost:8002", "0.1");
+	swagger.configure(cfg.basePath, "0.1");
 	// Serve up swagger ui at /docs via static route
 	var docs_handler = express.static(__dirname + '/../documentation/swagger/');
 	app.get(/^\/docs(\/.*)?$/, function(req, res, next) {
