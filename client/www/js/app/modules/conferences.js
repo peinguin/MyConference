@@ -116,7 +116,7 @@ define(
 						ShowStreams(
 							conference_id,
 							function(streams){
-								streams.at(0).get('id');
+								ShowStream(streams.at(0).get('id'));
 							}
 						);
 					},
