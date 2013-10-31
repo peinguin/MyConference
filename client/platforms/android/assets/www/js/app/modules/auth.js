@@ -2,67 +2,56 @@ define(
 	[
 		'app/app',
 		'marionette',
-		'app/views/login',
-		'app/config',
-		'app/helper',
-		'app/views/alert',
-		'app/models/localStorage'
+		'app/models/user',
+		'app/views/auth/register',
+		'app/views/auth/profile'
 	],
 	function(
 		MyConference,
 		Marionette,
-		LoginView,
-		cfg,
-		Helper,
-		AlertView,
-		Storage
+		UserModel,
+		RegisterView,
+		ProfileView
 	){
 
 		MyConference.module("Auth", function(AuthModule){
 
-			var AuthController = Marionette.Controller.extend({
-				login: function(){
+			var User = new UserModel;
 
-					if(MyConference.User.get('isGuest') === false){
+			var AuthController = Marionette.Controller.extend({
+				register: function(){
+
+					if(User.isNew()){
+						var registerView = new RegisterView;
+						registerView.model = User;
+						MyConference.mainView.currentView.content.show(registerView);
+					}else{
 						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
 					}
-
-					var loginView = new LoginView;
-					loginView.controller = this;
-					MyConference.mainView.show(loginView);
 				},
 				logout: function(){
-					MyConference.User.logout();
+					if(User.isNew()){
+						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}else{
+						User.logout();
+					}
 				},
-				realLogin: function(form){
-					$.ajax({
-						url: cfg.baseUrl + 'auth.json',
-						data: {
-							email: form.email.value,
-							password: form.password.value
-						},
-						method:'POST',
-						success :function(user, message, xhr){
-							Storage.set('API_KEY', xhr.getResponseHeader(cfg.authHeader));
-							MyConference.User.set({
-								email: user.email,
-								isGuest: false
-							});
-							(new Backbone.Router).navigate("", {trigger: true, replace: true});
-						},
-						error: function(xhr){
-							if(xhr.status == 403){
-								(new AlertView).render(Helper.getErrorStringInHtml(xhr));
-							}
-						}
-					});
+				profile: function(){
+					if(User.isNew()){
+						return (new Backbone.Router).navigate("", {trigger: true, replace: true});
+					}else{
+						var profileView = new ProfileView;
+						profileView.model = User;
+						MyConference.mainView.currentView.content.show(profileView);
+					}
 				}
 			});
 
 			var AuthRouter = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
-					"login": "login",
-					"logout": "logout"
+					"register": "register",
+					"logout":   "logout",
+					"profile":  "profile"
 				},
 				controller: new AuthController
 			});
@@ -70,6 +59,12 @@ define(
 			AuthModule.addInitializer(function(){
 				new AuthRouter;
 			});
+
+			this.getUser = function(){
+				return User;
+			}
+
+			this.startWithParent = false;
 
 		});
 

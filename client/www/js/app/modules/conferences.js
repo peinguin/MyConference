@@ -70,7 +70,7 @@ define(
 						MyConference.mainView.currentView.content.show(streamsView);
 
 						if(callback){
-							callback();
+							callback(streams);
 						}
 					}
 				});
@@ -115,18 +115,8 @@ define(
 					streams: function(conference_id){
 						ShowStreams(
 							conference_id,
-							function(){
-								ShowStream(
-									MyConference.
-										mainView.
-											currentView.
-												content.
-													currentView.
-														model.
-															streams.
-																at(0).
-																	get('id')
-								);
+							function(streams){
+								streams.at(0).get('id');
 							}
 						);
 					},

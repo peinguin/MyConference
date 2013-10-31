@@ -1,8 +1,10 @@
 define(
 	[
+		'backbone',
 		'app/config'
 	],
 	function(
+		Backbone,
 		cfg
 	) {
 		var ConferenceModel = Backbone.Model.extend({
