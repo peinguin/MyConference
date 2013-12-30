@@ -3,7 +3,7 @@ var config = require('./config');
 
 exports.init = function (app) {
 	app.use(orm.express(config.db, {
-	    define: function (db, models) {
+	    define: function (db, models, next) {
 
 	        db.define("users",
 	        	{
@@ -85,7 +85,9 @@ exports.init = function (app) {
 
 		    Decisions.hasOne('conference', Conferences, {reverse: 'decision'});
 		    Streams.hasOne('conference', Conferences, {reverse: 'streams'})
-		    Timeslots.hasOne('stream', Streams, {reverse: 'timeslots'})
+		    Timeslots.hasOne('stream', Streams, {reverse: 'timeslots'});
+
+		    next();
 	    }
 	}));
 }
